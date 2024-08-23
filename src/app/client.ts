@@ -140,6 +140,24 @@ export const contract = getContract({
           type: "uint256",
         },
         {
+          internalType: "uint256",
+          name: "deposits",
+          type: "uint256",
+        },
+      ],
+      name: "addReservationSlot",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
+    {
+      inputs: [
+        {
+          internalType: "uint256",
+          name: "storeId",
+          type: "uint256",
+        },
+        {
           internalType: "address",
           name: "storeAddress",
           type: "address",

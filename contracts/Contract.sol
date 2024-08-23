@@ -15,6 +15,10 @@ contract MyContract {
         storeAddresses[storeId] = storeAddress;
     }
 
+    function addReservationSlot(uint256 storeId, uint256 deposits) external {
+        reservations.push(reservation(storeId, deposits, false));
+    }
+
     function makeReservation(uint reservationId) external payable {
         require(
             msg.value == reservations[reservationId].deposits,
