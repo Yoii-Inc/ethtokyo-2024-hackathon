@@ -2,13 +2,17 @@
 pragma solidity ^0.8.9;
 
 contract MyContract {
-    address[] public storeAddresses;
+    mapping(uint256 => address) public storeAddresses;
     reservation[] public reservations;
 
     struct reservation {
         uint256 storeId;
         uint256 deposits;
         bool serviceConfirmed;
+    }
+
+    function addStore(uint256 storeId, address storeAddress) external {
+        storeAddresses[storeId] = storeAddress;
     }
 
     function makeReservation(uint reservationId) external payable {
@@ -55,6 +59,8 @@ contract MyContract {
         );
         emit DepositForfeited(msg.sender, reservationId, deposit);
     }
+
+    event StoreAdded(uint256 storeId, address storeAddress);
 
     event ReservationMade(
         address indexed user,
