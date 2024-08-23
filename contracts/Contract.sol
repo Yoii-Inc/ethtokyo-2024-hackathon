@@ -2,22 +2,21 @@
 pragma solidity ^0.8.9;
 
 contract MyContract {
-    address public storeAddress;
+    address[] public storeAddresses;
     reservation[] public reservations;
-    uint[] public reservationDeposit;
 
     struct reservation {
-        address store;
-        mapping(address => uint256) deposits;
+        uint256 storeId;
+        uint256 deposits;
         bool serviceConfirmed;
     }
 
     function makeReservation(uint reservationId) external payable {
         require(
-            msg.value == reservationDeposit[reservationId],
+            msg.value == reservations[reservationId].deposits,
             "Incorrect deposit amount"
         );
-        reservations[reservationId].deposits[msg.sender] = msg.value;
+        reservations[reservationId].deposits = msg.value;
         emit ReservationMade(msg.sender, reservationId, msg.value);
     }
 
@@ -35,9 +34,11 @@ contract MyContract {
             reservations[reservationId].serviceConfirmed,
             "Service not confirmed"
         );
-        uint256 deposit = reservations[reservationId].deposits[msg.sender];
+        uint256 deposit = reservations[reservationId].deposits;
         require(amount >= deposit, "Amount less than deposit");
-        payable(storeAddress).transfer(amount);
+        payable(storeAddresses[reservations[reservationId].storeId]).transfer(
+            amount
+        );
         emit PaymentFinalized(msg.sender, reservationId, amount);
     }
 
@@ -46,10 +47,12 @@ contract MyContract {
             !reservations[reservationId].serviceConfirmed,
             "Service already confirmed"
         );
-        uint256 deposit = reservations[reservationId].deposits[msg.sender];
+        uint256 deposit = reservations[reservationId].deposits;
         require(deposit > 0, "No deposit to forfeit");
-        delete reservations[reservationId].deposits[msg.sender];
-        payable(storeAddress).transfer(deposit);
+        delete reservations[reservationId].deposits;
+        payable(storeAddresses[reservations[reservationId].storeId]).transfer(
+            deposit
+        );
         emit DepositForfeited(msg.sender, reservationId, deposit);
     }
 
