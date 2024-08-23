@@ -2,15 +2,14 @@ import { prepareContractCall } from "thirdweb";
 import { contract } from "../../app/client";
 
 export function makeReservation(
-  userId: number,
-  storeId: number,
-  reservationDate: string,
-  depositAmount: number
+  shopId: number,
+  reservationId: number,
+  reservationDate: string
 ) {
   const transaction = prepareContractCall({
     contract,
     method: "makeReservation", // <- this gets inferred from the contract
-    params: [BigInt(depositAmount)],
+    params: [BigInt(reservationId)],
   });
   return transaction;
 }

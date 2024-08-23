@@ -1,13 +1,15 @@
 "use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ConnectButton } from "thirdweb/react";
+import { ConnectButton, TransactionButton } from "thirdweb/react";
 import thirdwebIcon from "@public/thirdweb.svg";
 import { client } from "../client";
-import ShopSelector from '../../components/ShopSelector';
-import TimeSlotSelector from '../../components/TimeSlotSelector';
+import ShopSelector from "../../components/ShopSelector";
+import TimeSlotSelector from "../../components/TimeSlotSelector";
+import RegisterCustomerPopup from "@/components/RegisterCustomer";
+import { makeReservation } from "@/utils/customer/reservation";
 
 export default function CustomerPage() {
   const [selectedShop, setSelectedShop] = useState<number | null>(null);
@@ -28,21 +30,57 @@ export default function CustomerPage() {
           url: "https://example.com",
         }}
       />
-      <ShopSelector onSelectShop={(shopId: number) => setSelectedShop(shopId)} />
+      <ShopSelector
+        onSelectShop={(shopId: number) => setSelectedShop(shopId)}
+      />
       {selectedShop && (
         <TimeSlotSelector
           shopId={selectedShop}
           onSelectTimeSlot={(timeSlot: string) => setSelectedTimeSlot(timeSlot)}
         />
       )}
+      {selectedShop && selectedTimeSlot && (
+        <TransactionButton
+          transaction={() => {
+            // TODO: replace with actual reservation ID
+            const tx = makeReservation(selectedShop, 10, selectedTimeSlot);
+            return tx;
+          }}
+          onTransactionSent={(result) => {
+            console.log("Transaction submitted", result.transactionHash);
+          }}
+          onTransactionConfirmed={(receipt) => {
+            console.log("Transaction confirmed", receipt.transactionHash);
+            window.location.reload();
+          }}
+          onError={(error) => {
+            console.error("Transaction error", error);
+          }}
+        >
+          Make a Reservatinon
+        </TransactionButton>
+      )}
       <div className="mt-8 flex justify-center">
-        <Link href="/shop" className="bg-purple-500 hover:bg-purple-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 flex items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-            <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
+        <Link
+          href="/shop"
+          className="bg-purple-500 hover:bg-purple-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 flex items-center"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5 mr-2"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fillRule="evenodd"
+              d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+              clipRule="evenodd"
+            />
           </svg>
           ショップ管理ページへ
         </Link>
       </div>
+      <RegisterCustomerPopup />
     </main>
   );
 }
