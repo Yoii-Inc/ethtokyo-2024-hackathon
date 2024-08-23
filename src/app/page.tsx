@@ -1,29 +1,58 @@
+"use client";
+
+import { useState } from 'react';
 import Image from "next/image";
 import { ConnectButton } from "thirdweb/react";
 import thirdwebIcon from "@public/thirdweb.svg";
 import { client } from "./client";
+import ShopSelector from '../components/ShopSelector';
+import TimeSlotSelector from '../components/TimeSlotSelector';
+import { ContractInterface } from 'ethers';
 
 export default function Home() {
+  const [selectedShop, setSelectedShop] = useState<number | null>(null);
+  const [selectedTimeSlot, setSelectedTimeSlot] = useState<string | null>(null);
+
+  const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS;
+  if (!contractAddress) {
+    throw new Error("契約アドレスが設定されていません");
+  }
+
   return (
-    <main className="p-4 pb-10 min-h-[100vh] flex items-center justify-center container max-w-screen-lg mx-auto">
-      <div className="py-20">
-        <Header />
-
-        <div className="flex justify-center mb-20">
-          <ConnectButton
-            client={client}
-            appMetadata={{
-              name: "Example App",
-              url: "https://example.com",
-            }}
-          />
-        </div>
-
-        <ThirdwebResources />
-      </div>
+    <main className="p-4 container mx-auto">
+      <h1 className="text-2xl font-bold mb-4">予約システム</h1>
+      <ShopSelector onSelectShop={(shopId: number) => setSelectedShop(shopId)} />
+      {selectedShop && (
+        <TimeSlotSelector
+          shopId={selectedShop}
+          onSelectTimeSlot={(timeSlot: string) => setSelectedTimeSlot(timeSlot)}
+        />
+      )}
     </main>
   );
 }
+
+// export default function Home() {
+//   return (
+//     <main className="p-4 pb-10 min-h-[100vh] flex items-center justify-center container max-w-screen-lg mx-auto">
+//       <div className="py-20">
+//         <Header />
+
+//         <div className="flex justify-center mb-20">
+//           <ConnectButton
+//             client={client}
+//             appMetadata={{
+//               name: "Example App",
+//               url: "https://example.com",
+//             }}
+//           />
+//         </div>
+
+//         <ThirdwebResources />
+//       </div>
+//     </main>
+//   );
+// }
 
 function Header() {
   return (
