@@ -35,47 +35,40 @@ contract LoyaltyLogicContract is Ownable {
         return loyaltyToken.balanceOf(_user);
     }
 
-    function externalUpdateReservation(uint256 reservationId) external {
-        IBookingContract.Reservation memory reservation = bookingContract
-            .reservations(reservationId);
-
-        require(
-            msg.sender ==
-                bookingContract.stores(reservation.storeId).storeAdmin,
-            "Only store admin can call this function"
-        );
-
-        bookingContract.bookReservation(reservationId);
-    }
-
-    function externalUpdateReservation(
-        uint256 _reservationId,
-        uint256 _storeId,
-        address _customer,
-        uint256 _datetime,
-        uint256 _requiredDeposit,
-        uint256 _currentDeposit,
-        uint256 _serviceFee,
-        bool _paid
+    function bookReservationDiscount(
+        uint256 reservationId,
+        uint256 consumeLoyaltyPoints
     ) external {
         IBookingContract.Reservation memory reservation = bookingContract
-            .reservations(_reservationId);
+            .reservations(reservationId);
 
         require(
             msg.sender == reservation.customer,
             "Only the customer who booked the reservation can call this function"
         );
 
-        bookingContract.updateReservation(
-            _reservationId,
-            _storeId,
-            _customer,
-            _datetime,
-            _requiredDeposit,
-            _currentDeposit,
-            _serviceFee,
-            _paid
+        require(
+            consumeLoyaltyPoints <= loyaltyToken.balanceOf(msg.sender),
+            "Insufficient loyalty points"
         );
+
+        require(
+            consumeLoyaltyPoints <= reservation.serviceFee,
+            "Cannot consume more points than the service fee"
+        );
+
+        bookingContract.updateReservation(
+            reservationId,
+            reservation.storeId,
+            reservation.customer,
+            reservation.datetime,
+            reservation.requiredDeposit,
+            reservation.currentDeposit,
+            reservation.serviceFee - consumeLoyaltyPoints,
+            reservation.paid
+        );
+
+        this.usePoints(msg.sender, consumeLoyaltyPoints);
     }
 
     // Function to finalize payment and award loyalty points (1/20 of the service fee)
