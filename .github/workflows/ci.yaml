@@ -22,3 +22,6 @@ jobs:
         run: yarn install --immutable
       - name: Build
         run: yarn build
+        env:
+          NEXT_PUBLIC_TEMPLATE_CLIENT_ID: ${{ vars.NEXT_PUBLIC_TEMPLATE_CLIENT_ID }}
+          NEXT_PUBLIC_CONTRACT_ADDRESS: ${{ vars.NEXT_PUBLIC_CONTRACT_ADDRESS }}
