@@ -1,8 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import QRCode from "qrcode.react";
 
 const QRCodeGenerator: React.FC<{ reservationId: bigint | null }> = ({ reservationId }) => {
     const [showQR, setShowQR] = useState(false);
+    const [baseUrl, setBaseUrl] = useState(process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_BASE_URL);
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            setBaseUrl(`${window.location.protocol}//${window.location.host}`);
+        }
+    }, []);
 
     return (
         <div>
@@ -22,7 +29,7 @@ const QRCodeGenerator: React.FC<{ reservationId: bigint | null }> = ({ reservati
                         {
                             (() => {
                                 if (reservationId != null) {
-                                    let url = `http://localhost:3000/customer/confirm-service?id=${reservationId.toString()}`
+                                    let url = `${baseUrl}/customer/checkin?id=${reservationId.toString()}`
                                     return (
                                         <div className="mt-4 flex flex-col items-center">
                                             <a href={url} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-600 hover:underline mb-2">

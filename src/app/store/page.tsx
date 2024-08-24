@@ -35,7 +35,17 @@ export default function StorePage() {
 
   return (
     <main className="p-8 container mx-auto relative">
-      <h1 className="text-3xl font-bold mb-8">Store Page</h1>
+      <div className="absolute top-4 right-4">
+        <ConnectButton
+          client={client}
+          appMetadata={{
+            name: "Example App",
+            url: "https://example.com",
+          }}
+        />
+      </div>
+
+      <h1 className="text-3xl font-bold mb-8">ストアページ</h1>
 
       <div className="mb-8 p-4 bg-blue-50 rounded-lg shadow-sm">
         <h2 className="text-lg font-semibold text-blue-800 mb-2">
@@ -56,56 +66,42 @@ export default function StorePage() {
       </div>
 
       <div className="mb-8">
-        <ConnectButton
-          client={client}
-          appMetadata={{
-            name: "Example App",
-            url: "https://example.com",
-          }}
-        />
-      </div>
-
-      <div className="mb-8">
         <div className="tabs flex justify-around border-b-2">
           <button
             onClick={() => setActiveTab("storeList")}
-            className={`py-3 px-6 focus:outline-none text-lg ${
-              activeTab === "storeList"
-                ? "border-b-4 border-blue-500 text-blue-500 font-semibold"
-                : "text-gray-500 hover:text-gray-700"
-            }`}
+            className={`py-3 px-6 focus:outline-none text-lg ${activeTab === "storeList"
+              ? "border-b-4 border-blue-500 text-blue-500 font-semibold"
+              : "text-gray-500 hover:text-gray-700"
+              }`}
           >
             List of owned stores
           </button>
           <button
             onClick={() => setActiveTab("newService")}
             disabled={!selectedStore}
-            className={`py-3 px-6 focus:outline-none text-lg ${
-              activeTab === "newService"
-                ? "border-b-4 border-blue-500 text-blue-500 font-semibold"
-                : "text-gray-500 hover:text-gray-700"
-            }`}
+            className={`py-3 px-6 focus:outline-none text-lg ${activeTab === "newService"
+              ? "border-b-4 border-blue-500 text-blue-500 font-semibold"
+              : "text-gray-500 hover:text-gray-700"
+              }`}
           >
             Create new Services
           </button>
           <button
             onClick={() => setActiveTab("serviceList")}
             disabled={!selectedStore}
-            className={`py-3 px-6 focus:outline-none text-lg ${
-              activeTab === "serviceList"
-                ? "border-b-4 border-blue-500 text-blue-500 font-semibold"
-                : "text-gray-500 hover:text-gray-700"
-            }`}
+            className={`py-3 px-6 focus:outline-none text-lg ${activeTab === "serviceList"
+              ? "border-b-4 border-blue-500 text-blue-500 font-semibold"
+              : "text-gray-500 hover:text-gray-700"
+              }`}
           >
             List of Services
           </button>
           <button
             onClick={() => setActiveTab("loyaltyProgram")}
-            className={`py-3 px-6 focus:outline-none text-lg ${
-              activeTab === "loyaltyProgram"
-                ? "border-b-4 border-blue-500 text-blue-500 font-semibold"
-                : "text-gray-500 hover:text-gray-700"
-            }`}
+            className={`py-3 px-6 focus:outline-none text-lg ${activeTab === "loyaltyProgram"
+              ? "border-b-4 border-blue-500 text-blue-500 font-semibold"
+              : "text-gray-500 hover:text-gray-700"
+              }`}
           >
             Loyalty Program Setting
           </button>
