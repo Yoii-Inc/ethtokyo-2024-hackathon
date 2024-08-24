@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { ConnectButton } from "thirdweb/react";
 import { client } from "../client";
 import { useState } from "react";
 import NewService from "./new-service";
@@ -9,6 +8,7 @@ import ServiceList from "./service-list";
 import LoyaltyProgram from "./LoyaltyProgram";
 import StoreList from "./StoreList";
 import { Store } from "@/utils/type";
+import MyConnectButton from "@/components/MyConnectButton";
 
 export default function StorePage() {
   const [activeTab, setActiveTab] = useState("storeList");
@@ -36,13 +36,7 @@ export default function StorePage() {
   return (
     <main className="p-8 container mx-auto relative">
       <div className="absolute top-4 right-4">
-        <ConnectButton
-          client={client}
-          appMetadata={{
-            name: "Example App",
-            url: "https://example.com",
-          }}
-        />
+        <MyConnectButton />
       </div>
 
       <h1 className="text-3xl font-bold mb-8">Store Page</h1>

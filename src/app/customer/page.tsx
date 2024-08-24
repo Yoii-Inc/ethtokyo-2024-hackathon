@@ -3,33 +3,23 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ConnectButton, TransactionButton } from "thirdweb/react";
+import { TransactionButton } from "thirdweb/react";
 import thirdwebIcon from "@public/thirdweb.svg";
 import { client } from "../client";
 import StoreSelector from "../../components/StoreSelector";
 import TimeSlotSelector from "../../components/TimeSlotSelector";
 import { bookReservation } from "@/utils/customer/reservation";
+import MyConnectButton from "@/components/MyConnectButton";
 
 export default function CustomerPage() {
   const [selectedStore, setSelectedStore] = useState<number | null>(null);
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState<string | null>(null);
 
-  const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS;
-  if (!contractAddress) {
-    throw new Error("Contract address is not set");
-  }
-
   return (
     <main className="p-4 container mx-auto relative">
       <div className="absolute top-4 right-4">
-        <ConnectButton
-          client={client}
-          appMetadata={{
-            name: "OpenBooking",
-            url: "https://openbooking.vercel.app",
-          }}
-        />
+        <MyConnectButton />
       </div>
 
       <h1 className="text-2xl font-bold mb-4">Customer Page</h1>

@@ -3,12 +3,12 @@
 import { useSearchParams, useRouter } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 import {
-    ConnectButton,
     TransactionButton,
     useActiveAccount,
 } from "thirdweb/react";
-import { client, contract } from "../../client";
+import { contract } from "../../client";
 import { prepareContractCall } from "thirdweb";
+import MyConnectButton from "@/components/MyConnectButton";
 
 function CheckInInnerPage() {
     const router = useRouter();
@@ -43,13 +43,7 @@ function CheckInInnerPage() {
             <h1 className="text-2xl font-bold mb-4">Service Confirmation</h1>
             <p className="mb-4">Reservation ID: {reservationId}</p>
             <div className="flex flex-col items-center space-y-4">
-                <ConnectButton
-                    client={client}
-                    appMetadata={{
-                        name: "Example App",
-                        url: "https://example.com",
-                    }}
-                />
+                <MyConnectButton />
                 {address && (
                     <TransactionButton
                         transaction={handleFinalizePayment}
