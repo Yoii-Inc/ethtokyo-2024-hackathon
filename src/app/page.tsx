@@ -10,8 +10,8 @@ export default function Home() {
           <Link href="/customer" className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-4 px-6 rounded-lg text-center transition duration-300 ease-in-out transform hover:scale-105">
             お客様ページ
           </Link>
-          <Link href="/shop" className="bg-purple-500 hover:bg-purple-600 text-white font-bold py-4 px-6 rounded-lg text-center transition duration-300 ease-in-out transform hover:scale-105">
-            ショップ管理ページ
+          <Link href="/store" className="bg-purple-500 hover:bg-purple-600 text-white font-bold py-4 px-6 rounded-lg text-center transition duration-300 ease-in-out transform hover:scale-105">
+            ストア管理ページ
           </Link>
         </div>
         <div className="mt-12 text-center">

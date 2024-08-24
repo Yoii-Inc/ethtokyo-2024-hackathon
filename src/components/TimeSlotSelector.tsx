@@ -6,14 +6,14 @@ const mockTimeSlots: Record<number, string[]> = {
     3: ['11:00', '13:00', '15:00', '16:00'],
 };
 
-export default function TimeSlotSelector({ shopId, onSelectTimeSlot }: { shopId: number, onSelectTimeSlot: (timeSlot: string) => void }) {
+export default function TimeSlotSelector({ storeId, onSelectTimeSlot }: { storeId: number, onSelectTimeSlot: (timeSlot: string) => void }) {
     const [timeSlots, setTimeSlots] = useState<string[]>([]);
     const [selectedTimeSlot, setSelectedTimeSlot] = useState<string | null>(null);
 
     useEffect(() => {
         // 実際のアプリケーションでは、ここでAPIリクエストを行います
-        setTimeSlots(mockTimeSlots[shopId] || []);
-    }, [shopId]);
+        setTimeSlots(mockTimeSlots[storeId] || []);
+    }, [storeId]);
 
     const handleTimeSlotSelect = (slot: string) => {
         setSelectedTimeSlot(slot);

@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 
-import { registerShop } from "../utils/shop/management";
+import { registerStore } from "@/utils/store/management";
 
-function RegisterShopPopup() {
+function RegisterStorePopup() {
   const [showPopup, setShowPopup] = useState(false);
-  const [shopName, setShopName] = useState("");
+  const [storeName, setStoreName] = useState("");
   const [walletAddress, setWalletAddress] = useState("");
 
-  const handleRegisterShop = () => {
-    registerShop(10, walletAddress);
+  const handleRegisterStore = () => {
+    registerStore(10, walletAddress);
     setShowPopup(false);
   };
 
@@ -18,7 +18,7 @@ function RegisterShopPopup() {
         onClick={() => setShowPopup(true)}
         className="px-4 py-2 rounded bg-blue-500 text-white"
       >
-        Register Shop
+        Register Store
       </button>
 
       {showPopup && (
@@ -30,8 +30,8 @@ function RegisterShopPopup() {
               <label className="block mb-2 text-black">User Name</label>
               <input
                 type="text"
-                value={shopName}
-                onChange={(e) => setShopName(e.target.value)}
+                value={storeName}
+                onChange={(e) => setStoreName(e.target.value)}
                 className="w-full px-3 py-2 border rounded"
               />
             </div>
@@ -54,7 +54,7 @@ function RegisterShopPopup() {
                 Cancel
               </button>
               <button
-                onClick={handleRegisterShop}
+                onClick={handleRegisterStore}
                 className="px-4 py-2 rounded bg-green-500 text-white"
               >
                 OK
@@ -67,4 +67,4 @@ function RegisterShopPopup() {
   );
 }
 
-export default RegisterShopPopup;
+export default RegisterStorePopup;

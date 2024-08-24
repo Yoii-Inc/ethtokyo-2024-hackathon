@@ -1,21 +1,21 @@
 import { prepareContractCall } from "thirdweb";
-import { Shop } from "../type";
+import { Store } from "../type";
 import { contract } from "../../app/client";
 
-export async function registerShop(shopId: number, walletAddress: string) {
+export async function registerStore(storeId: number, walletAddress: string) {
   const transaction = prepareContractCall({
     contract,
     method: "addStore",
-    params: [BigInt(shopId), walletAddress],
+    params: [BigInt(storeId), walletAddress],
   });
   return transaction;
 }
 
-export async function getShop(userId: string) {
+export async function getStore(userId: string) {
   throw new Error("Not yet implemented");
 }
 
-export function updateShop(
+export function updateStore(
   userId: string,
   newUserName: string,
   newWalletAddress: string
@@ -23,6 +23,6 @@ export function updateShop(
   throw new Error("Not yet implemented");
 }
 
-export function deleteShop(userId: string) {
+export function deleteStore(userId: string) {
   throw new Error("Not implemented");
 }
