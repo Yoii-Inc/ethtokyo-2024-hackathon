@@ -320,5 +320,53 @@ export const contract = getContract({
       stateMutability: "view",
       type: "function",
     },
+    {
+      inputs: [
+        {
+          internalType: "uint256",
+          name: "_reservationId",
+          type: "uint256",
+        },
+        {
+          internalType: "uint256",
+          name: "_storeId",
+          type: "uint256",
+        },
+        {
+          internalType: "address",
+          name: "_customer",
+          type: "address",
+        },
+        {
+          internalType: "uint256",
+          name: "_datetime",
+          type: "uint256",
+        },
+        {
+          internalType: "uint256",
+          name: "_requiredDeposit",
+          type: "uint256",
+        },
+        {
+          internalType: "uint256",
+          name: "_currentDeposit",
+          type: "uint256",
+        },
+        {
+          internalType: "uint256",
+          name: "_serviceFee",
+          type: "uint256",
+        },
+        {
+          internalType: "bool",
+          name: "_paid",
+          type: "bool",
+        },
+      ],
+      name: "updateReservation",
+      outputs: [],
+      stateMutability: "nonpayable",
+      type: "function",
+    },
   ],
 });
