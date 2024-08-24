@@ -5,6 +5,8 @@ contract MyContract {
     mapping(uint256 => address) public storeAddresses;
     reservation[] public reservations;
 
+    uint256 public reservationLastId;
+
     struct reservation {
         uint256 storeId;
         uint256 deposits;
@@ -16,10 +18,12 @@ contract MyContract {
     }
 
     function addReservationSlot(uint256 storeId, uint256 deposits) external {
-        reservations.push(reservation(storeId, deposits, false));
+        reservationLastId += 1;
+        reservations[reservationLastId] = reservation(storeId, deposits, false);
+        emit ReservationSlotAdded(reservationLastId, storeId, deposits);
     }
 
-    function makeReservation(uint reservationId) external payable {
+    function makeReservation(uint256 reservationId) external payable {
         require(
             msg.value == reservations[reservationId].deposits,
             "Incorrect deposit amount"
@@ -65,6 +69,12 @@ contract MyContract {
     }
 
     event StoreAdded(uint256 storeId, address storeAddress);
+
+    event ReservationSlotAdded(
+        uint256 reservationId,
+        uint256 storeId,
+        uint256 deposits
+    );
 
     event ReservationMade(
         address indexed user,
