@@ -38,12 +38,10 @@ function RegisterStorePopup() {
             </div>
 
             <div className="mb-4">
-              <label className="block mb-2 text-black">
-                Your Address
-              </label>
+              <label className="block mb-2 text-black">Your Address</label>
               <input
                 type="text"
-                value={activeAccount?.address || "ウォレット接続をしてください"}
+                value={activeAccount?.address || "Connect to your wallet"}
                 disabled
                 onChange={(e) => setWalletAddress(e.target.value)}
                 className="w-full px-3 py-2 border rounded text-gray-500"

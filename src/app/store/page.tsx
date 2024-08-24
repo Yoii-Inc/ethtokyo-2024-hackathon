@@ -20,11 +20,9 @@ export default function StorePage() {
         return <StoreList setStore={setSelectedStore} />;
       case "newService":
         return selectedStore ? (
-          <NewService
-            storeId={Number(selectedStore.storeId)}
-          />
+          <NewService storeId={Number(selectedStore.storeId)} />
         ) : (
-          <p className="text-red-500">ストアを選択してください</p>
+          <p className="text-red-500">Select a store</p>
         );
       case "serviceList":
         return <ServiceList storeId={selectedStore?.storeId} />;
@@ -37,23 +35,23 @@ export default function StorePage() {
 
   return (
     <main className="p-8 container mx-auto relative">
-      <h1 className="text-3xl font-bold mb-8">ストア管理ページ</h1>
+      <h1 className="text-3xl font-bold mb-8">Store Page</h1>
 
       <div className="mb-8 p-4 bg-blue-50 rounded-lg shadow-sm">
         <h2 className="text-lg font-semibold text-blue-800 mb-2">
-          選択中のストア
+          Store of choice
         </h2>
         {selectedStore ? (
           <>
             <p className="text-blue-600 text-base mb-1">
-              ストア名: {selectedStore.storeName}
+              Store Name: {selectedStore.storeName}
             </p>
             <p className="text-blue-600 text-base">
-              ストアID: {selectedStore.storeId.toString()}
+              Store ID: {selectedStore.storeId.toString()}
             </p>
           </>
         ) : (
-          <p className="text-gray-600 text-base">ストアが選択されていません</p>
+          <p className="text-gray-600 text-base">Store is not selected.</p>
         )}
       </div>
 
@@ -71,41 +69,45 @@ export default function StorePage() {
         <div className="tabs flex justify-around border-b-2">
           <button
             onClick={() => setActiveTab("storeList")}
-            className={`py-3 px-6 focus:outline-none text-lg ${activeTab === "storeList"
-              ? "border-b-4 border-blue-500 text-blue-500 font-semibold"
-              : "text-gray-500 hover:text-gray-700"
-              }`}
+            className={`py-3 px-6 focus:outline-none text-lg ${
+              activeTab === "storeList"
+                ? "border-b-4 border-blue-500 text-blue-500 font-semibold"
+                : "text-gray-500 hover:text-gray-700"
+            }`}
           >
-            所有ストア一覧
+            List of owned stores
           </button>
           <button
             onClick={() => setActiveTab("newService")}
             disabled={!selectedStore}
-            className={`py-3 px-6 focus:outline-none text-lg ${activeTab === "newService"
-              ? "border-b-4 border-blue-500 text-blue-500 font-semibold"
-              : "text-gray-500 hover:text-gray-700"
-              }`}
+            className={`py-3 px-6 focus:outline-none text-lg ${
+              activeTab === "newService"
+                ? "border-b-4 border-blue-500 text-blue-500 font-semibold"
+                : "text-gray-500 hover:text-gray-700"
+            }`}
           >
-            新規予約枠作成
+            Create new Services
           </button>
           <button
             onClick={() => setActiveTab("serviceList")}
             disabled={!selectedStore}
-            className={`py-3 px-6 focus:outline-none text-lg ${activeTab === "serviceList"
-              ? "border-b-4 border-blue-500 text-blue-500 font-semibold"
-              : "text-gray-500 hover:text-gray-700"
-              }`}
+            className={`py-3 px-6 focus:outline-none text-lg ${
+              activeTab === "serviceList"
+                ? "border-b-4 border-blue-500 text-blue-500 font-semibold"
+                : "text-gray-500 hover:text-gray-700"
+            }`}
           >
-            予約枠一覧
+            List of Services
           </button>
           <button
             onClick={() => setActiveTab("loyaltyProgram")}
-            className={`py-3 px-6 focus:outline-none text-lg ${activeTab === "loyaltyProgram"
-              ? "border-b-4 border-blue-500 text-blue-500 font-semibold"
-              : "text-gray-500 hover:text-gray-700"
-              }`}
+            className={`py-3 px-6 focus:outline-none text-lg ${
+              activeTab === "loyaltyProgram"
+                ? "border-b-4 border-blue-500 text-blue-500 font-semibold"
+                : "text-gray-500 hover:text-gray-700"
+            }`}
           >
-            ロイヤリティプログラム設定
+            Loyalty Program Setting
           </button>
         </div>
       </div>
@@ -129,7 +131,7 @@ export default function StorePage() {
               clipRule="evenodd"
             />
           </svg>
-          お客様管理ページへ
+          To Customer Page
         </Link>
       </div>
     </main>

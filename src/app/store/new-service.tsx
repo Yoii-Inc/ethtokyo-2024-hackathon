@@ -3,9 +3,7 @@ import { useState } from "react";
 import { TransactionButton } from "thirdweb/react";
 import DateTimeSelector from "@/components/DateTimeSelector";
 
-export default function NewService(props: {
-  storeId: number;
-}) {
+export default function NewService(props: { storeId: number }) {
   const [showPopup, setShowPopup] = useState(false);
   const [deposit, setDeposit] = useState("");
   const [serviceFee, setServiceFee] = useState("");
@@ -68,7 +66,7 @@ export default function NewService(props: {
                 className="px-4 py-2 rounded bg-green-500 text-white"
                 transaction={() => {
                   if (!selectedDateTime) {
-                    throw new Error("日時が選択されていません");
+                    throw new Error("Datetime is not selected.");
                   }
                   const tx = registerReservationSlot(
                     props.storeId,

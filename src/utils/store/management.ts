@@ -35,7 +35,7 @@ export async function listStores() {
       i++;
     } catch (error) {
       // TODO: Better way to handle this
-      console.error(`ストア${i}の取得中にエラーが発生しました:`, error);
+      console.error(`Error occurred while fething store ${i}.:`, error);
       break;
     }
   }
@@ -86,7 +86,7 @@ export async function listReservations(storeId: bigint) {
       i++;
     } catch (error) {
       // TODO: Better way to handle this
-      console.error(`error occurred while fetching reservations: ${error}`);
+      console.error(`Error occurred while fetching reservations: ${error}`);
       break;
     }
   }

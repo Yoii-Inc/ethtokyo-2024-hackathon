@@ -17,12 +17,12 @@ export default function CustomerPage() {
 
   const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS;
   if (!contractAddress) {
-    throw new Error("契約アドレスが設定されていません");
+    throw new Error("Contract address is not set");
   }
 
   return (
     <main className="p-4 container mx-auto ">
-      <h1 className="text-2xl font-bold mb-4">お客様ページ</h1>
+      <h1 className="text-2xl font-bold mb-4">Customer Page</h1>
       <ConnectButton
         client={client}
         appMetadata={{
@@ -80,7 +80,7 @@ export default function CustomerPage() {
               clipRule="evenodd"
             />
           </svg>
-          ストア管理ページへ
+          To Store Page
         </Link>
       </div>
     </main>
