@@ -69,6 +69,10 @@ contract MyContract {
     function bookReservation(uint256 reservationId) external payable {
         uint256 deposit = reservations[reservationId].requiredDeposit;
         require(msg.value >= deposit, "Deposit amount is less than required");
+        require(
+            reservations[reservationId].customer == address(0),
+            "Already booked"
+        );
         reservations[reservationId].customer = msg.sender;
         reservations[reservationId].currentDeposit = deposit;
         payable(address(this)).transfer(deposit);
@@ -94,6 +98,7 @@ contract MyContract {
         uint256 deposit = reservations[reservationId].currentDeposit;
         require(deposit > 0, "No deposit to forfeit");
         reservations[reservationId].currentDeposit = 0;
+        reservations[reservationId].customer = address(0);
         payable(msg.sender).transfer(deposit);
         emit DepositForfeited(msg.sender, reservationId, deposit);
     }
