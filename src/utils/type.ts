@@ -5,7 +5,7 @@ export interface User {
 }
 
 export interface Store {
-  id: number;
-  name: string;
-  walletAddress: string;
+  storeId: bigint;
+  storeName: string;
+  storeAdmin: string;
 }
