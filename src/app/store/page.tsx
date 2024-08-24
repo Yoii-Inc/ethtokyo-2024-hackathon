@@ -1,11 +1,8 @@
 "use client";
 
-import QRCodeGenerator from "@/components/QRCodeGenerator";
 import Link from "next/link";
-import { ConnectButton, TransactionButton } from "thirdweb/react";
+import { ConnectButton } from "thirdweb/react";
 import { client } from "../client";
-import { registerReservationSlot } from "@/utils/store/service";
-import RegisterStorePopup from "@/components/RegisterStore";
 import { useState } from "react";
 import NewService from "./new-service";
 import ServiceList from "./service-list";
@@ -74,48 +71,42 @@ export default function StorePage() {
       </div>
 
       <div className="mb-8">
-        <RegisterStorePopup />
-      </div>
-
-      <div className="mb-8">
         <div className="tabs flex justify-around border-b-2">
           <button
             onClick={() => setActiveTab("storeList")}
-            className={`py-3 px-6 focus:outline-none text-lg ${
-              activeTab === "storeList"
-                ? "border-b-4 border-blue-500 text-blue-500 font-semibold"
-                : "text-gray-500 hover:text-gray-700"
-            }`}
+            className={`py-3 px-6 focus:outline-none text-lg ${activeTab === "storeList"
+              ? "border-b-4 border-blue-500 text-blue-500 font-semibold"
+              : "text-gray-500 hover:text-gray-700"
+              }`}
           >
             所有ストア一覧
           </button>
           <button
             onClick={() => setActiveTab("newService")}
-            className={`py-3 px-6 focus:outline-none text-lg ${
-              activeTab === "newService"
-                ? "border-b-4 border-blue-500 text-blue-500 font-semibold"
-                : "text-gray-500 hover:text-gray-700"
-            }`}
+            disabled={!selectedStore}
+            className={`py-3 px-6 focus:outline-none text-lg ${activeTab === "newService"
+              ? "border-b-4 border-blue-500 text-blue-500 font-semibold"
+              : "text-gray-500 hover:text-gray-700"
+              }`}
           >
-            新規サービス登録
+            新規予約枠作成
           </button>
           <button
             onClick={() => setActiveTab("serviceList")}
-            className={`py-3 px-6 focus:outline-none text-lg ${
-              activeTab === "serviceList"
-                ? "border-b-4 border-blue-500 text-blue-500 font-semibold"
-                : "text-gray-500 hover:text-gray-700"
-            }`}
+            disabled={!selectedStore}
+            className={`py-3 px-6 focus:outline-none text-lg ${activeTab === "serviceList"
+              ? "border-b-4 border-blue-500 text-blue-500 font-semibold"
+              : "text-gray-500 hover:text-gray-700"
+              }`}
           >
-            サービス一覧
+            予約枠一覧
           </button>
           <button
             onClick={() => setActiveTab("loyaltyProgram")}
-            className={`py-3 px-6 focus:outline-none text-lg ${
-              activeTab === "loyaltyProgram"
-                ? "border-b-4 border-blue-500 text-blue-500 font-semibold"
-                : "text-gray-500 hover:text-gray-700"
-            }`}
+            className={`py-3 px-6 focus:outline-none text-lg ${activeTab === "loyaltyProgram"
+              ? "border-b-4 border-blue-500 text-blue-500 font-semibold"
+              : "text-gray-500 hover:text-gray-700"
+              }`}
           >
             ロイヤリティプログラム設定
           </button>

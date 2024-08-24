@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Store } from "@/utils/type";
 import { listStores } from "@/utils/store/management";
 import { useActiveAccount } from "thirdweb/react";
+import RegisterStorePopup from "@/components/RegisterStore";
 
 export default function StoreList({ setStore }: { setStore: (store: Store) => void }) {
   const [stores, setStores] = useState<Store[]>([]);
@@ -17,25 +18,28 @@ export default function StoreList({ setStore }: { setStore: (store: Store) => vo
   }, [account]);
 
   return (
-    <div className="p-4 bg-white rounded-lg shadow">
-      <h2 className="text-xl font-semibold mb-4 text-black">ストア一覧</h2>
+    <div className="p-6 bg-white rounded-lg shadow-md">
+      <h2 className="text-2xl font-semibold mb-6 text-gray-800">ストア一覧</h2>
       {stores.length > 0 ? (
-        <ul className="space-y-2">
+        <ul className="space-y-4">
           {stores.map((store, index) => (
             <li
               key={index}
-              className="p-4 bg-gray-100 rounded-lg shadow-sm text-black cursor-pointer hover:bg-gray-200 transition-colors"
+              className="p-4 bg-blue-50 rounded-lg shadow-sm text-gray-800 cursor-pointer hover:bg-blue-100 transition-colors"
               onClick={() => setStore(store)}
             >
-              <div className="font-bold">{store.storeName}</div>
-              <div>ストアID: {store.storeId.toString()}</div>
-              <div>ストア管理者: {store.storeAdmin}</div>
+              <div className="font-bold text-lg mb-2">{store.storeName}</div>
+              <div className="text-sm text-gray-600">ストアID: {store.storeId.toString()}</div>
+              <div className="text-sm text-gray-600">ストア管理者: {store.storeAdmin}</div>
             </li>
           ))}
         </ul>
       ) : (
-        <p className="text-black">管理しているストアがありません。</p>
+        <p className="text-gray-600">管理しているストアがありません。</p>
       )}
+      <div className="mt-6">
+        <RegisterStorePopup />
+      </div>
     </div>
   );
 }

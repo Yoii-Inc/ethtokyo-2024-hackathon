@@ -19,16 +19,16 @@ function RegisterStorePopup() {
         }}
         className="px-4 py-2 rounded bg-blue-500 text-white"
       >
-        ストア登録
+        Store Registration
       </button>
 
       {showPopup && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
           <div className="bg-white p-6 rounded shadow-lg">
-            <h2 className="font-bold mb-4 text-black">ストア登録</h2>
+            <h2 className="font-bold mb-4 text-black">Store Registration</h2>
 
             <div className="mb-4">
-              <label className="block mb-2 text-black">ストア名</label>
+              <label className="block mb-2 text-black">Store Name</label>
               <input
                 type="text"
                 value={storeName}
@@ -39,7 +39,7 @@ function RegisterStorePopup() {
 
             <div className="mb-4">
               <label className="block mb-2 text-black">
-                ウォレットアドレス
+                Your Address
               </label>
               <input
                 type="text"
