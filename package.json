@@ -15,7 +15,6 @@
   },
   "dependencies": {
     "@nomicfoundation/hardhat-toolbox": "^5.0.0",
-    "@thirdweb-dev/contracts": "^3.8.0",
     "@types/react-datepicker": "^7.0.0",
     "clsx": "^2.1.1",
     "cross-spawn": "^7.0.3",
