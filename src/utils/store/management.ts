@@ -2,11 +2,11 @@ import { prepareContractCall } from "thirdweb";
 import { Store } from "../type";
 import { contract } from "../../app/client";
 
-export async function registerStore(storeId: number, walletAddress: string) {
+export async function addStore(storeName: string) {
   const transaction = prepareContractCall({
     contract,
     method: "addStore",
-    params: [BigInt(storeId), walletAddress],
+    params: [storeName],
   });
   return transaction;
 }
