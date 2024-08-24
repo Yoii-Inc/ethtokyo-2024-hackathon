@@ -6,7 +6,7 @@ import {
     TransactionButton,
     useActiveAccount,
 } from "thirdweb/react";
-import { contract } from "../../client";
+import { bookingContract } from "../../client";
 import { prepareContractCall } from "thirdweb";
 import MyConnectButton from "@/components/MyConnectButton";
 
@@ -28,7 +28,7 @@ function CheckInInnerPage() {
         if (!reservationId) throw new Error("Reservation ID is not found.");
 
         return prepareContractCall({
-            contract,
+            contract: bookingContract,
             method: "finalizePayment",
             params: [BigInt(reservationId)],
         });

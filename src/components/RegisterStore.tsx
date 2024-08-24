@@ -6,7 +6,7 @@ import { TransactionButton, useActiveAccount } from "thirdweb/react";
 function RegisterStorePopup() {
   const [showPopup, setShowPopup] = useState(false);
   const [storeName, setStoreName] = useState("");
-  const [walletAddress, setWalletAddress] = useState("");
+  const [loyaltyContractAddress, setLoyaltyContractAddress] = useState("");
 
   const activeAccount = useActiveAccount();
 
@@ -38,12 +38,11 @@ function RegisterStorePopup() {
             </div>
 
             <div className="mb-4">
-              <label className="block mb-2 text-black">Your Address</label>
+              <label className="block mb-2 text-black">Loyalty Contract Address</label>
               <input
                 type="text"
-                value={activeAccount?.address || "Connect to your wallet"}
-                disabled
-                onChange={(e) => setWalletAddress(e.target.value)}
+                value={loyaltyContractAddress}
+                onChange={(e) => setLoyaltyContractAddress(e.target.value)}
                 className="w-full px-3 py-2 border rounded text-gray-500"
               />
             </div>
@@ -59,7 +58,7 @@ function RegisterStorePopup() {
                 unstyled
                 className="px-4 py-2 rounded bg-green-500 text-white"
                 transaction={() => {
-                  const tx = addStore(storeName);
+                  const tx = addStore(storeName, loyaltyContractAddress);
                   return tx;
                 }}
                 onTransactionSent={(result) => {

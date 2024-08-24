@@ -9,6 +9,7 @@ contract BookingContract {
         uint256 storeId;
         string storeName;
         address storeAdmin;
+        address loyaltyLogicContract;
     }
 
     struct Reservation {
@@ -23,7 +24,8 @@ contract BookingContract {
 
     modifier onlyStoreAdmin(uint256 storeId) {
         require(
-            msg.sender == stores[storeId].storeAdmin,
+            msg.sender == stores[storeId].storeAdmin ||
+                msg.sender == stores[storeId].loyaltyLogicContract,
             "Only store admin can call this function"
         );
         _;
@@ -32,15 +34,21 @@ contract BookingContract {
     modifier onlyStoreAdminByReservation(uint256 reservationId) {
         require(
             msg.sender ==
-                stores[reservations[reservationId].storeId].storeAdmin,
+                stores[reservations[reservationId].storeId].storeAdmin ||
+                msg.sender ==
+                stores[reservations[reservationId].storeId]
+                    .loyaltyLogicContract,
             "Only store admin can call this function"
         );
         _;
     }
 
-    function addStore(string calldata storeName) external {
+    function addStore(
+        string calldata storeName,
+        address loyaltyLogicContract
+    ) external {
         uint256 len = stores.length;
-        stores.push(Store(len, storeName, msg.sender));
+        stores.push(Store(len, storeName, msg.sender, loyaltyLogicContract));
         emit StoreAdded(len, storeName, msg.sender);
     }
 
@@ -74,7 +82,7 @@ contract BookingContract {
         uint256 _currentDeposit,
         uint256 _serviceFee,
         bool _paid
-    ) external {
+    ) external onlyStoreAdminByReservation(_reservationId) {
         reservations[_reservationId] = Reservation({
             storeId: _storeId,
             customer: _customer,

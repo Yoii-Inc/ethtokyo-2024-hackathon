@@ -1,4 +1,4 @@
-import { contract } from "@/app/client";
+import { bookingContract } from "@/app/client";
 import { prepareContractCall } from "thirdweb";
 
 export async function registerReservationSlot(
@@ -8,7 +8,7 @@ export async function registerReservationSlot(
   serviceFee: number
 ) {
   const transaction = prepareContractCall({
-    contract,
+    contract: bookingContract,
     method: "addReservationSlot",
     params: [
       BigInt(storeId),

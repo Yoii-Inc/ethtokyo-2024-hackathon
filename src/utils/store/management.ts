@@ -1,12 +1,19 @@
 import { prepareContractCall, readContract } from "thirdweb";
 import { Reservation, Store } from "../type";
-import { contract } from "../../app/client";
+import { bookingContract } from "../../app/client";
 
-export async function addStore(storeName: string) {
+export async function addStore(
+  storeName: string,
+  loyaltyLogicContractAddress: string
+) {
   const transaction = prepareContractCall({
-    contract,
+    contract: bookingContract,
     method: "addStore",
-    params: [storeName],
+    params: [
+      storeName,
+      loyaltyLogicContractAddress ||
+        "0x0000000000000000000000000000000000000000",
+    ],
   });
   return transaction;
 }
@@ -18,7 +25,7 @@ export async function listStores() {
   while (true) {
     try {
       const store = await readContract({
-        contract,
+        contract: bookingContract,
         method: "stores",
         params: [BigInt(i)],
       });
@@ -67,7 +74,7 @@ export async function listReservations(storeId: bigint) {
     try {
       console.log("i: ", i);
       const reservation = await readContract({
-        contract,
+        contract: bookingContract,
         method: "reservations",
         params: [BigInt(i)],
       });
