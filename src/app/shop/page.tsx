@@ -1,5 +1,6 @@
 "use client";
 
+import QRCodeGenerator from "@/components/QRCodeGenerator";
 import Link from "next/link";
 import { ConnectButton, TransactionButton } from "thirdweb/react";
 import { client } from "../client";
@@ -7,7 +8,7 @@ import { registerReservationSlot } from "@/utils/shop/service";
 import RegisterShopPopup from "@/components/RegisterShop";
 export default function ShopPage() {
   return (
-    <main className="p-4 container mx-auto">
+    <main className="p-4 container mx-auto relative">
       <h1 className="text-2xl font-bold mb-4">ショップ管理ページ</h1>
       <ConnectButton
         client={client}
@@ -38,6 +39,10 @@ export default function ShopPage() {
       >
         Make a Reservatinon
       </TransactionButton>
+
+      <div className="mt-8">
+        <QRCodeGenerator />
+      </div>
       <div className="mt-8 flex justify-center">
         <Link
           href="/customer"
