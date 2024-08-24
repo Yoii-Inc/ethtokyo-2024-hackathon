@@ -1,12 +1,12 @@
 "use client";
 
 import { useSearchParams, useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { ConnectButton, TransactionButton, useActiveAccount } from 'thirdweb/react';
 import { client, contract } from '../../../app/client';
 import { prepareContractCall } from 'thirdweb';
 
-export default function ConfirmServicePage() {
+function ConfirmServiceInnerPage() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const [reservationId, setReservationId] = useState<string | null>(null);
@@ -65,5 +65,13 @@ export default function ConfirmServicePage() {
                 )}
             </div>
         </main>
+    );
+}
+
+export default function ConfirmServicePage() {
+    return (
+        <Suspense>
+            <ConfirmServiceInnerPage />
+        </Suspense>
     );
 }
