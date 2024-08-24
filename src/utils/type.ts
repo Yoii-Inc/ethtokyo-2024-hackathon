@@ -8,6 +8,10 @@ export interface Store {
   storeId: bigint;
   storeName: string;
   storeAdmin: string;
+  storeImage: string;
+  description: string;
+  maxFee: number;
+  minFee: number;
 }
 
 export interface Reservation {

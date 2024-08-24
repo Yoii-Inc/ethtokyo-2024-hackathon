@@ -31,6 +31,10 @@ export async function listStores() {
         storeId: store[0],
         storeName: store[1],
         storeAdmin: store[2],
+        storeImage: "",
+        description: "",
+        maxFee: 0,
+        minFee: 0,
       });
       i++;
     } catch (error) {
