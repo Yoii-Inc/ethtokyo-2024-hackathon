@@ -46,11 +46,17 @@ export default function StorePage() {
       <h1 className="text-3xl font-bold mb-8">ストア管理ページ</h1>
 
       <div className="mb-8 p-4 bg-blue-50 rounded-lg shadow-sm">
-        <h2 className="text-lg font-semibold text-blue-800 mb-2">選択中のストア</h2>
+        <h2 className="text-lg font-semibold text-blue-800 mb-2">
+          選択中のストア
+        </h2>
         {selectedStore ? (
           <>
-            <p className="text-blue-600 text-base mb-1">ストア名: {selectedStore.storeName}</p>
-            <p className="text-blue-600 text-base">ストアID: {selectedStore.storeId.toString()}</p>
+            <p className="text-blue-600 text-base mb-1">
+              ストア名: {selectedStore.storeName}
+            </p>
+            <p className="text-blue-600 text-base">
+              ストアID: {selectedStore.storeId.toString()}
+            </p>
           </>
         ) : (
           <p className="text-gray-600 text-base">ストアが選択されていません</p>
@@ -75,37 +81,41 @@ export default function StorePage() {
         <div className="tabs flex justify-around border-b-2">
           <button
             onClick={() => setActiveTab("storeList")}
-            className={`py-3 px-6 focus:outline-none text-lg ${activeTab === "storeList"
-              ? "border-b-4 border-blue-500 text-blue-500 font-semibold"
-              : "text-gray-500 hover:text-gray-700"
-              }`}
+            className={`py-3 px-6 focus:outline-none text-lg ${
+              activeTab === "storeList"
+                ? "border-b-4 border-blue-500 text-blue-500 font-semibold"
+                : "text-gray-500 hover:text-gray-700"
+            }`}
           >
             所有ストア一覧
           </button>
           <button
             onClick={() => setActiveTab("newService")}
-            className={`py-3 px-6 focus:outline-none text-lg ${activeTab === "newService"
-              ? "border-b-4 border-blue-500 text-blue-500 font-semibold"
-              : "text-gray-500 hover:text-gray-700"
-              }`}
+            className={`py-3 px-6 focus:outline-none text-lg ${
+              activeTab === "newService"
+                ? "border-b-4 border-blue-500 text-blue-500 font-semibold"
+                : "text-gray-500 hover:text-gray-700"
+            }`}
           >
             新規サービス登録
           </button>
           <button
             onClick={() => setActiveTab("serviceList")}
-            className={`py-3 px-6 focus:outline-none text-lg ${activeTab === "serviceList"
-              ? "border-b-4 border-blue-500 text-blue-500 font-semibold"
-              : "text-gray-500 hover:text-gray-700"
-              }`}
+            className={`py-3 px-6 focus:outline-none text-lg ${
+              activeTab === "serviceList"
+                ? "border-b-4 border-blue-500 text-blue-500 font-semibold"
+                : "text-gray-500 hover:text-gray-700"
+            }`}
           >
             サービス一覧
           </button>
           <button
             onClick={() => setActiveTab("loyaltyProgram")}
-            className={`py-3 px-6 focus:outline-none text-lg ${activeTab === "loyaltyProgram"
-              ? "border-b-4 border-blue-500 text-blue-500 font-semibold"
-              : "text-gray-500 hover:text-gray-700"
-              }`}
+            className={`py-3 px-6 focus:outline-none text-lg ${
+              activeTab === "loyaltyProgram"
+                ? "border-b-4 border-blue-500 text-blue-500 font-semibold"
+                : "text-gray-500 hover:text-gray-700"
+            }`}
           >
             ロイヤリティプログラム設定
           </button>
@@ -113,10 +123,6 @@ export default function StorePage() {
       </div>
 
       <div className="tab-content mt-8">{renderTabContent()}</div>
-
-      <div className="mt-12">
-        <QRCodeGenerator />
-      </div>
 
       <div className="mt-12 flex justify-center">
         <Link
