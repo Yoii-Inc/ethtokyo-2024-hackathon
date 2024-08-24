@@ -16,7 +16,7 @@ export default function StorePage() {
   const renderTabContent = () => {
     switch (activeTab) {
       case "newService":
-        return <NewService />;
+        return <NewService storeId={1} deposit={1000} serviceFee={2000} datetime={new Date().getTime()} />;
       case "serviceList":
         return <ServiceList />;
       case "loyaltyProgram":

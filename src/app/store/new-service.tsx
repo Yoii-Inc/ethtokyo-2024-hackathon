@@ -2,17 +2,12 @@ import RegisterStorePopup from "@/components/RegisterStore";
 import { registerReservationSlot } from "@/utils/store/service";
 import { TransactionButton } from "thirdweb/react";
 
-export default function NewService() {
+export default function NewService(props: { storeId: number, deposit: number, serviceFee: number, datetime: number }) {
   return (
     <div>
       <TransactionButton
         transaction={() => {
-          // TODO: replace with actual info
-          const storeId = 1;
-          const deposit = 1000;
-          const serviceFee = 2000;
-          const datetime = new Date().getTime();
-          const tx = registerReservationSlot(storeId, datetime, deposit, serviceFee);
+          const tx = registerReservationSlot(props.storeId, props.datetime, props.deposit, props.serviceFee);
           return tx;
         }}
         onTransactionSent={(result) => {
