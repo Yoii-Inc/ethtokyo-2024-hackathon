@@ -72,6 +72,8 @@ export async function listReservations(storeId: bigint) {
       if (!reservation) {
         break;
       }
+
+      i++;
       if (reservation[0] !== storeId) {
         continue;
       }
@@ -85,7 +87,6 @@ export async function listReservations(storeId: bigint) {
         serviceFee: reservation[5],
         paid: reservation[6],
       });
-      i++;
     } catch (error) {
       // TODO: Better way to handle this
       console.error(`error occurred while fetching reservations: ${error}`);
