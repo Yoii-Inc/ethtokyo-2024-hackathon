@@ -1,11 +1,7 @@
 import { prepareContractCall } from "thirdweb";
 import { bookingContract } from "../../app/client";
 
-export function bookReservation(
-  storeId: number,
-  reservationId: number,
-  reservationDate: string
-) {
+export function bookReservation(reservationId: number) {
   const transaction = prepareContractCall({
     contract: bookingContract,
     method: "bookReservation", // <- this gets inferred from the contract

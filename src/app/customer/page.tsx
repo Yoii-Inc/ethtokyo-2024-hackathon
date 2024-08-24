@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { TransactionButton } from "thirdweb/react";
@@ -13,8 +13,13 @@ import MyConnectButton from "@/components/MyConnectButton";
 
 export default function CustomerPage() {
   const [selectedStore, setSelectedStore] = useState<number | null>(null);
-  const [selectedDate, setSelectedDate] = useState<string | null>(null);
-  const [selectedTimeSlot, setSelectedTimeSlot] = useState<string | null>(null);
+  const [selectedReservationId, setSelectedReservationId] = useState<
+    number | null
+  >(null);
+
+  useEffect(() => {
+    setSelectedReservationId(null);
+  }, [selectedStore]);
 
   return (
     <main className="p-4 container mx-auto relative">
@@ -28,20 +33,19 @@ export default function CustomerPage() {
       <StoreSelector
         onSelectStore={(storeId: number) => setSelectedStore(storeId)}
       />
-      {selectedStore && (
+      {selectedStore !== null && (
         <TimeSlotSelector
           storeId={selectedStore}
-          onSelectTimeSlot={(date: string, timeSlot: string) => {
-            setSelectedDate(date);
-            setSelectedTimeSlot(timeSlot);
+          onSelectTimeSlot={(reservationId: number) => {
+            setSelectedReservationId(reservationId);
           }}
         />
       )}
-      {selectedStore && selectedTimeSlot && (
+      {selectedStore !== null && selectedReservationId !== null && (
         <TransactionButton
           transaction={() => {
             // TODO: replace with actual reservation ID
-            const tx = bookReservation(selectedStore, 10, selectedTimeSlot);
+            const tx = bookReservation(selectedReservationId);
             return tx;
           }}
           onTransactionSent={(result) => {

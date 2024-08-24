@@ -1,18 +1,11 @@
+import { listReservations } from "@/utils/store/management";
+import { Reservation } from "@/utils/type";
 import { useState, useEffect } from "react";
 
-const mockTimeSlots: Record<number, Record<string, string[]>> = {
-  1: {
-    "2024-04-20": ["10:00", "11:00", "14:00", "15:00"],
-    "2024-04-21": ["09:00", "10:00", "11:00", "13:00", "14:00"],
-  },
-  2: {
-    "2024-04-20": ["09:00", "10:00", "11:00", "13:00", "14:00"],
-    "2024-04-21": ["10:00", "11:00", "14:00", "15:00"],
-  },
-  3: {
-    "2024-04-20": ["11:00", "13:00", "15:00", "16:00"],
-    "2024-04-21": ["09:00", "10:00", "11:00", "13:00"],
-  },
+type EasyReservation = {
+  reservationId: number;
+  date: string;
+  time: string;
 };
 
 export default function TimeSlotSelector({
@@ -20,32 +13,87 @@ export default function TimeSlotSelector({
   onSelectTimeSlot,
 }: {
   storeId: number;
-  onSelectTimeSlot: (date: string, timeSlot: string) => void;
+  onSelectTimeSlot: (
+    /*date: string, timeSlot: string*/
+    reservationId: number
+  ) => void;
 }) {
   const [availableDates, setAvailableDates] = useState<string[]>([]);
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [timeSlots, setTimeSlots] = useState<string[]>([]);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState<string | null>(null);
+  const [selectedReservationId, setSelectedReservationId] = useState<
+    number | null
+  >(null);
+  const [mockTimeSlots, setmockTimeSlots] = useState<
+    Record<string, EasyReservation[]>
+  >({});
 
   useEffect(() => {
     // In the actual application, API requests are made here
-    const dates = Object.keys(mockTimeSlots[storeId] || {});
+    // const dates = Object.keys(mockTimeSlots[storeId] || {});
+    const dates = Object.keys(mockTimeSlots || {});
     setAvailableDates(dates);
     setSelectedDate(null);
     setTimeSlots([]);
     setSelectedTimeSlot(null);
+    setSelectedReservationId(null);
+
+    listReservations(BigInt(storeId)).then((reservations) => {
+      const dictionary: Record<string, EasyReservation[]> = {};
+
+      reservations.forEach((reservation) => {
+        console.log("reservation is ", reservation);
+        const dt = new Date(Number(reservation.datetime));
+        // transform to JST (JST: UTC+9)
+        const options: Intl.DateTimeFormatOptions = {
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: false,
+          timeZone: "Asia/Tokyo",
+        };
+
+        const localeDate = dt.toLocaleString("ja-JP", options).split(" ");
+        const date = localeDate[0].replace(/\//g, "-"); // key yyyy-mm-dd
+        const time = localeDate[1]; // value hh:mm
+
+        if (!dictionary[date]) {
+          dictionary[date] = [];
+        }
+        const val: EasyReservation = {
+          reservationId: Number(reservation.reservationId),
+          date,
+          time,
+        };
+        dictionary[date].push(val);
+      });
+
+      setmockTimeSlots(dictionary);
+      setAvailableDates(Object.keys(dictionary));
+    });
   }, [storeId]);
 
   const handleDateSelect = (date: string) => {
     setSelectedDate(date);
-    setTimeSlots(mockTimeSlots[storeId][date] || []);
+    setTimeSlots(
+      mockTimeSlots[date].map((resrvation) => resrvation.time) || []
+    );
     setSelectedTimeSlot(null);
   };
 
   const handleTimeSlotSelect = (slot: string) => {
     setSelectedTimeSlot(slot);
     if (selectedDate) {
-      onSelectTimeSlot(selectedDate, slot);
+      const reservation = mockTimeSlots[selectedDate].find(
+        (r) => r.time === slot
+      );
+      setSelectedReservationId(reservation?.reservationId || null);
+      if (selectedReservationId !== null) {
+        onSelectTimeSlot(selectedReservationId);
+      }
     }
   };
 
