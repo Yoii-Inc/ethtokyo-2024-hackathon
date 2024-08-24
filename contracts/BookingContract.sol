@@ -2,16 +2,16 @@
 pragma solidity ^0.8.9;
 
 contract BookingContract {
-    store[] public stores;
-    reservation[] public reservations;
+    Store[] public stores;
+    Reservation[] public reservations;
 
-    struct store {
+    struct Store {
         uint256 storeId;
         string storeName;
         address storeAdmin;
     }
 
-    struct reservation {
+    struct Reservation {
         uint256 storeId;
         address customer;
         uint256 datetime;
@@ -40,7 +40,7 @@ contract BookingContract {
 
     function addStore(string calldata storeName) external {
         uint256 len = stores.length;
-        stores.push(store(len, storeName, msg.sender));
+        stores.push(Store(len, storeName, msg.sender));
         emit StoreAdded(len, storeName, msg.sender);
     }
 
@@ -52,7 +52,7 @@ contract BookingContract {
     ) external onlyStoreAdmin(storeId) {
         uint256 len = reservations.length;
         reservations.push(
-            reservation(
+            Reservation(
                 storeId,
                 address(0),
                 datetime,
@@ -66,7 +66,7 @@ contract BookingContract {
     }
 
     function updateReservation(
-        uint256 _resertvationId,
+        uint256 _reservationId,
         uint256 _storeId,
         address _customer,
         uint256 _datetime,
@@ -75,7 +75,7 @@ contract BookingContract {
         uint256 _serviceFee,
         bool _paid
     ) external {
-        reservation[_resertvationId] = reservation({
+        reservations[_reservationId] = Reservation({
             storeId: _storeId,
             customer: _customer,
             datetime: _datetime,
@@ -104,10 +104,11 @@ contract BookingContract {
         require(!reservations[reservationId].paid, "Reservation already paid");
         uint256 deposit = reservations[reservationId].currentDeposit;
         uint256 serviceFee = reservations[reservationId].serviceFee;
-        address storeAdmin = stores[reservations[reservationId].storeId]
-            .storeAdmin;
         require(msg.value + deposit == serviceFee, "Incorrect amount");
         reservations[reservationId].paid = true;
+        reservations[reservationId].currentDeposit = 0;
+        address storeAdmin = stores[reservations[reservationId].storeId]
+            .storeAdmin;
         payable(storeAdmin).transfer(serviceFee);
         emit PaymentFinalized(msg.sender, reservationId, serviceFee);
     }
