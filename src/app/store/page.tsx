@@ -6,7 +6,25 @@ import { ConnectButton, TransactionButton } from "thirdweb/react";
 import { client } from "../client";
 import { registerReservationSlot } from "@/utils/store/service";
 import RegisterStorePopup from "@/components/RegisterStore";
+import { useState } from "react";
+import NewService from "./new-service";
+import ServiceList from "./service-list";
+import LoyaltyProgram from "./LoyaltyProgram";
 export default function StorePage() {
+  const [activeTab, setActiveTab] = useState("newService");
+
+  const renderTabContent = () => {
+    switch (activeTab) {
+      case "newService":
+        return <NewService />;
+      case "serviceList":
+        return <ServiceList />;
+      case "loyaltyProgram":
+        return <LoyaltyProgram />;
+      default:
+        return null;
+    }
+  };
   return (
     <main className="p-4 container mx-auto relative">
       <h1 className="text-2xl font-bold mb-4">ストア管理ページ</h1>
@@ -18,28 +36,41 @@ export default function StorePage() {
         }}
       />
       <RegisterStorePopup />
-      <TransactionButton
-        transaction={() => {
-          // TODO: replace with actual reservation ID
-          const storeId = 1;
-          const deposits = 10;
-          const tx = registerReservationSlot(storeId, deposits);
-          return tx;
-        }}
-        onTransactionSent={(result) => {
-          console.log("Transaction submitted", result.transactionHash);
-        }}
-        onTransactionConfirmed={(receipt) => {
-          console.log("Transaction confirmed", receipt.transactionHash);
-          window.location.reload();
-        }}
-        onError={(error) => {
-          console.error("Transaction error", error);
-        }}
-      >
-        Make a Reservatinon
-      </TransactionButton>
-
+      <div className="flex space-x-4 border-b mb-4">
+        <div className="tabs flex justify-around border-b-2 mb-4">
+          <button
+            onClick={() => setActiveTab("newService")}
+            className={`py-2 px-4 focus:outline-none ${
+              activeTab === "newService"
+                ? "border-b-4 border-blue-500 text-blue-500 font-semibold"
+                : "text-gray-500"
+            }`}
+          >
+            新規サービス登録画面
+          </button>
+          <button
+            onClick={() => setActiveTab("serviceList")}
+            className={`py-2 px-4 focus:outline-none ${
+              activeTab === "serviceList"
+                ? "border-b-4 border-blue-500 text-blue-500 font-semibold"
+                : "text-gray-500"
+            }`}
+          >
+            サービス一覧画面
+          </button>
+          <button
+            onClick={() => setActiveTab("loyaltyProgram")}
+            className={`py-2 px-4 focus:outline-none ${
+              activeTab === "loyaltyProgram"
+                ? "border-b-4 border-blue-500 text-blue-500 font-semibold"
+                : "text-gray-500"
+            }`}
+          >
+            ロイヤリティプログラム設定画面
+          </button>
+        </div>
+      </div>
+      <div className="tab-content mt-4">{renderTabContent()}</div>
       <div className="mt-8">
         <QRCodeGenerator />
       </div>
