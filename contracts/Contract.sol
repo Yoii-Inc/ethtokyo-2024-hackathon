@@ -2,87 +2,117 @@
 pragma solidity ^0.8.9;
 
 contract MyContract {
-    mapping(uint256 => address) public storeAddresses;
+    store[] public stores;
     reservation[] public reservations;
 
-    uint256 public reservationLastId;
+    struct store {
+        uint256 storeId;
+        string storeName;
+        address storeAdmin;
+    }
 
     struct reservation {
         uint256 storeId;
-        uint256 deposits;
-        bool serviceConfirmed;
+        address customer;
+        uint256 datetime;
+        uint256 requiredDeposit;
+        uint256 currentDeposit;
+        uint256 serviceFee;
+        bool paid;
     }
 
-    function addStore(uint256 storeId, address storeAddress) external {
-        storeAddresses[storeId] = storeAddress;
-    }
-
-    function addReservationSlot(uint256 storeId, uint256 deposits) external {
-        reservationLastId += 1;
-        reservations[reservationLastId] = reservation(storeId, deposits, false);
-        emit ReservationSlotAdded(reservationLastId, storeId, deposits);
-    }
-
-    function makeReservation(uint256 reservationId) external payable {
+    modifier onlyStoreAdmin(uint256 storeId) {
         require(
-            msg.value == reservations[reservationId].deposits,
-            "Incorrect deposit amount"
+            msg.sender == stores[storeId].storeAdmin,
+            "Only store admin can call this function"
         );
-        reservations[reservationId].deposits = msg.value;
-        emit ReservationMade(msg.sender, reservationId, msg.value);
+        _;
     }
 
-    function confirmService(uint256 reservationId) external {
+    modifier onlyStoreAdminByReservation(uint256 reservationId) {
         require(
-            !reservations[reservationId].serviceConfirmed,
-            "Service already confirmed"
+            msg.sender ==
+                stores[reservations[reservationId].storeId].storeAdmin,
+            "Only store admin can call this function"
         );
-        reservations[reservationId].serviceConfirmed = true;
-        emit ServiceConfirmed(reservationId);
+        _;
     }
 
-    function finalizePayment(uint256 reservationId, uint256 amount) external {
-        require(
-            reservations[reservationId].serviceConfirmed,
-            "Service not confirmed"
-        );
-        uint256 deposit = reservations[reservationId].deposits;
-        require(amount >= deposit, "Amount less than deposit");
-        payable(storeAddresses[reservations[reservationId].storeId]).transfer(
-            amount
-        );
-        emit PaymentFinalized(msg.sender, reservationId, amount);
+    function addStore(string calldata storeName) external {
+        uint256 len = stores.length;
+        stores.push(store(len, storeName, msg.sender));
+        emit StoreAdded(len, storeName, msg.sender);
     }
 
-    function forfeitDeposit(uint256 reservationId) external {
-        require(
-            !reservations[reservationId].serviceConfirmed,
-            "Service already confirmed"
+    function addReservationSlot(
+        uint256 storeId,
+        uint256 datetime,
+        uint256 deposit,
+        uint256 serviceFee
+    ) external onlyStoreAdmin(storeId) {
+        uint256 len = reservations.length;
+        reservations.push(
+            reservation(
+                storeId,
+                address(0),
+                datetime,
+                deposit,
+                0,
+                serviceFee,
+                false
+            )
         );
-        uint256 deposit = reservations[reservationId].deposits;
+        emit ReservationSlotAdded(len, storeId, datetime, deposit, serviceFee);
+    }
+
+    // deposit to the contract
+    function bookReservation(uint256 reservationId) external payable {
+        uint256 deposit = reservations[reservationId].requiredDeposit;
+        require(msg.value >= deposit, "Deposit amount is less than required");
+        reservations[reservationId].customer = msg.sender;
+        reservations[reservationId].currentDeposit = deposit;
+        payable(address(this)).transfer(deposit);
+        emit ReservationBooked(msg.sender, reservationId, deposit);
+    }
+
+    function finalizePayment(uint256 reservationId) external payable {
+        require(!reservations[reservationId].paid, "Reservation already paid");
+        uint256 deposit = reservations[reservationId].currentDeposit;
+        uint256 serviceFee = reservations[reservationId].serviceFee;
+        address storeAdmin = stores[reservations[reservationId].storeId]
+            .storeAdmin;
+        require(msg.value + deposit == serviceFee, "Incorrect amount");
+        reservations[reservationId].paid = true;
+        payable(storeAdmin).transfer(serviceFee);
+        emit PaymentFinalized(msg.sender, reservationId, serviceFee);
+    }
+
+    function forfeitDeposit(
+        uint256 reservationId
+    ) external onlyStoreAdminByReservation(reservationId) {
+        require(!reservations[reservationId].paid, "Reservation already paid");
+        uint256 deposit = reservations[reservationId].currentDeposit;
         require(deposit > 0, "No deposit to forfeit");
-        delete reservations[reservationId].deposits;
-        payable(storeAddresses[reservations[reservationId].storeId]).transfer(
-            deposit
-        );
+        reservations[reservationId].currentDeposit = 0;
+        payable(msg.sender).transfer(deposit);
         emit DepositForfeited(msg.sender, reservationId, deposit);
     }
 
-    event StoreAdded(uint256 storeId, address storeAddress);
+    event StoreAdded(uint256 storeId, string storeName, address storeAdmin);
 
     event ReservationSlotAdded(
         uint256 reservationId,
         uint256 storeId,
-        uint256 deposits
+        uint256 datetime,
+        uint256 deposit,
+        uint256 serviceFee
     );
 
-    event ReservationMade(
+    event ReservationBooked(
         address indexed user,
         uint256 reservationId,
         uint256 deposit
     );
-
-    event ServiceConfirmed(uint256 reservationId);
 
     event PaymentFinalized(
         address indexed user,
