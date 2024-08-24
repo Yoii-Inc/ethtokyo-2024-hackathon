@@ -65,6 +65,27 @@ contract BookingContract {
         emit ReservationSlotAdded(len, storeId, datetime, deposit, serviceFee);
     }
 
+    function updateReservation(
+        uint256 _resertvationId,
+        uint256 _storeId,
+        address _customer,
+        uint256 _datetime,
+        uint256 _requiredDeposit,
+        uint256 _currentDeposit,
+        uint256 _serviceFee,
+        bool _paid
+    ) external {
+        reservation[_resertvationId] = reservation({
+            storeId: _storeId,
+            customer: _customer,
+            datetime: _datetime,
+            requiredDeposit: _requiredDeposit,
+            currentDeposit: _currentDeposit,
+            serviceFee: _serviceFee,
+            paid: _paid
+        });
+    }
+
     // deposit to the contract
     function bookReservation(uint256 reservationId) external payable {
         uint256 deposit = reservations[reservationId].requiredDeposit;

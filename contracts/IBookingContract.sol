@@ -27,6 +27,17 @@ interface IBookingContract {
         uint256 serviceFee
     ) external;
 
+    function updateReservation(
+        uint256 _resertvationId,
+        uint256 _storeId,
+        address _customer,
+        uint256 _datetime,
+        uint256 _requiredDeposit,
+        uint256 _currentDeposit,
+        uint256 _serviceFee,
+        bool _paid
+    ) external;
+
     function bookReservation(uint256 reservationId) external payable;
 
     function finalizePayment(uint256 reservationId) external payable;
