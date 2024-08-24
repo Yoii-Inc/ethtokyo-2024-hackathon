@@ -8,7 +8,6 @@ import thirdwebIcon from "@public/thirdweb.svg";
 import { client } from "../client";
 import ShopSelector from "../../components/ShopSelector";
 import TimeSlotSelector from "../../components/TimeSlotSelector";
-import RegisterCustomerPopup from "@/components/RegisterCustomer";
 import { makeReservation } from "@/utils/customer/reservation";
 
 export default function CustomerPage() {
@@ -80,7 +79,6 @@ export default function CustomerPage() {
           ショップ管理ページへ
         </Link>
       </div>
-      <RegisterCustomerPopup />
     </main>
   );
 }
