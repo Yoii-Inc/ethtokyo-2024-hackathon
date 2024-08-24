@@ -45,17 +45,15 @@ export default function StoreSelector({
 
   return (
     <div className="mb-12">
-      <h2 className="text-3xl font-semibold mb-6">Select a store</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {stores.map((store) => (
           <div
             key={store.id}
             onClick={() => handleStoreSelect(store.id)}
-            className={`cursor-pointer p-6 rounded-xl shadow-lg transition-all flex flex-col h-full ${
-              selectedStore === store.id
-                ? "bg-blue-500 text-white"
-                : "bg-white text-gray-800 hover:bg-gray-100"
-            }`}
+            className={`cursor-pointer p-6 rounded-xl shadow-lg transition-all flex flex-col h-full ${selectedStore === store.id
+              ? "bg-blue-500 text-white"
+              : "bg-white text-gray-800 hover:bg-gray-100"
+              }`}
           >
             <div className="relative w-full h-56 mb-4">
               <Image
@@ -72,11 +70,10 @@ export default function StoreSelector({
             </p>
             <p className="text-base flex-grow mb-4">{store.description}</p>
             <button
-              className={`mt-auto px-6 py-3 rounded-lg text-lg font-medium ${
-                selectedStore === store.id
-                  ? "bg-white text-blue-500"
-                  : "bg-blue-500 text-white hover:bg-blue-600"
-              }`}
+              className={`mt-auto px-6 py-3 rounded-lg text-lg font-medium ${selectedStore === store.id
+                ? "bg-white text-blue-500"
+                : "bg-blue-500 text-white hover:bg-blue-600"
+                }`}
             >
               {selectedStore === store.id ? "Selected" : "Select?"}
             </button>
