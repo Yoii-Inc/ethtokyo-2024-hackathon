@@ -64,7 +64,7 @@ export default function ServiceList(props: { storeId: bigint | undefined }) {
                 >
                   <div className="center">{time}</div>
                   <div className="opacity-0 group-hover:opacity-100">
-                    <QRCodeGenerator />
+                    <QRCodeGenerator reservationId={reservation.reservationId} />
                   </div>
                 </div>
               ))}
