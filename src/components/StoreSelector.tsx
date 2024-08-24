@@ -104,7 +104,6 @@ export default function StoreSelector({
 
   const handleStoreSelect = (storeId: number) => {
     setSelectedStore(storeId);
-    onSelectStore(storeId);
   };
 
   return (
@@ -134,7 +133,7 @@ export default function StoreSelector({
               <span className="text-lg font-bold">{store.minFee} ~ {store.maxFee}</span>
             </div>
             <p className="text-sm flex-grow mb-4">{store.description}</p>
-            <div className="bg-gray-100 rounded-lg p-3 mb-4">
+            <div className={`${selectedStore === Number(store.storeId) ? "bg-blue-400" : "bg-gray-200"} rounded-lg p-3 mb-4`}>
               <p className="text-sm font-medium mb-1">Loyality Token Name:</p>
               <p className="text-base font-bold">{store.loyaltyTokenName}</p>
               <p className="text-sm mt-2">Amount: <span className="font-bold">{store.loyaltyTokenAmount.toString()}</span></p>
