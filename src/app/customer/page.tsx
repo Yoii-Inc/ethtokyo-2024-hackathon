@@ -31,7 +31,8 @@ export default function CustomerPage() {
       <h2 className="text-xl font-semibold mb-6">Select a store</h2>
 
       <StoreSelector
-        onSelectStore={(storeId: number) => setSelectedStore(storeId)}
+        selectedStore={selectedStore}
+        setSelectedStore={setSelectedStore}
       />
       {selectedStore !== null && (
         <TimeSlotSelector

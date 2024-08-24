@@ -6,43 +6,13 @@ import { listReservations, listStores } from "@/utils/store/management";
 import { getContract, readContract } from "thirdweb";
 import { chain, client, erc20Abi, loyaltyLogicContractAbi } from "@/app/client";
 
-// const stores = [
-//   {
-//     id: 1,
-//     name: "Store A",
-//     description:
-//       //   "ストアAの説明文がここに入ります。より長い説明文を追加して、カードを縦長にします。",
-//       "The description for Store A goes here. Add a longer description and make the card vertical.",
-//     image: "/store-a.jpg",
-//     price: 5000,
-//   },
-//   {
-//     id: 2,
-//     name: "Store B",
-//     description:
-//       //   "ストアBの説明文がここに入ります。各ストアの特徴や提供するサービスについて詳しく説明することができます。",
-//       "A description of Store B will go here. You can describe in detail the features and services offered by each store.",
-//     image: "/store-b.jpg",
-//     price: 7500,
-//   },
-//   {
-//     id: 3,
-//     name: "Store C",
-//     description:
-//       //   "ストアCの説明文がここに入ります。お客様にとって魅力的な情報を提供し、選択の助けとなるような内容を記載します。",
-//       "The description of Store C will go here. The description should provide information that is attractive to customers and help them make a choice.",
-//     image: "/store-c.jpg",
-//     price: 6000,
-//   },
-// ];
-
 export default function StoreSelector({
-  onSelectStore,
+  selectedStore,
+  setSelectedStore,
 }: {
-  onSelectStore: (storeId: number) => void;
+  selectedStore: number | null;
+  setSelectedStore: (storeId: number) => void;
 }) {
-  const [selectedStore, setSelectedStore] = useState<number | null>(null);
-
   const [stores, setStores] = useState<Store[]>([]);
   const account = useActiveAccount();
 
