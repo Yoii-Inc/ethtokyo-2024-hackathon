@@ -45,7 +45,7 @@ export default function StorePage() {
         />
       </div>
 
-      <h1 className="text-3xl font-bold mb-8">ストアページ</h1>
+      <h1 className="text-3xl font-bold mb-8">Store Page</h1>
 
       <div className="mb-8 p-4 bg-blue-50 rounded-lg shadow-sm">
         <h2 className="text-lg font-semibold text-blue-800 mb-2">
