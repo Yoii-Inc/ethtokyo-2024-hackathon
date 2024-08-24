@@ -9,3 +9,14 @@ export interface Store {
   storeName: string;
   storeAdmin: string;
 }
+
+export interface Reservation {
+  reservationId: bigint;
+  storeId: bigint;
+  datetime: bigint;
+  customer: string;
+  requiredDeposit: bigint;
+  currentDeposit: bigint;
+  serviceFee: bigint;
+  paid: boolean;
+}

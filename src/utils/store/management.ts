@@ -1,5 +1,5 @@
 import { prepareContractCall, readContract } from "thirdweb";
-import { Store } from "../type";
+import { Reservation, Store } from "../type";
 import { contract } from "../../app/client";
 
 export async function addStore(storeName: string) {
@@ -53,4 +53,43 @@ export function updateStore(
 
 export function deleteStore(userId: string) {
   throw new Error("Not implemented");
+}
+
+export async function listReservations(storeId: bigint) {
+  let reservations: Reservation[] = [];
+  let i = 0;
+
+  while (true) {
+    try {
+      const store = await readContract({
+        contract,
+        method: "reservations",
+        params: [BigInt(i)],
+      });
+
+      if (!store) {
+        break;
+      }
+      if (store[0] !== storeId) {
+        continue;
+      }
+      reservations.push({
+        reservationId: BigInt(i),
+        storeId: store[0],
+        customer: store[1],
+        datetime: store[2],
+        requiredDeposit: store[3],
+        currentDeposit: store[4],
+        serviceFee: store[5],
+        paid: store[6],
+      });
+      i++;
+    } catch (error) {
+      // TODO: Better way to handle this
+      console.error(`error occurred while fetching reservations: ${error}`);
+      break;
+    }
+  }
+
+  return reservations;
 }

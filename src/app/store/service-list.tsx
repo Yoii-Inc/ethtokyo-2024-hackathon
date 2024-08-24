@@ -1,17 +1,25 @@
 import QRCodeGenerator from "@/components/QRCodeGenerator";
+import { listReservations } from "@/utils/store/management";
 import { useEffect, useState } from "react";
 
-export default function ServiceList() {
+export default function ServiceList(props: { storeId: bigint | undefined }) {
   const [services, setServices] = useState<Record<string, string[]>>({});
 
   useEffect(() => {
-    // ここでAPIリクエストを行い、サービス一覧を取得する
-    // 仮のサービス一覧を設定しています
-    setServices({
-      "2024-04-20": ["10:00", "11:00", "14:00", "15:00"],
-      "2024-04-21": ["09:00", "10:00", "11:00", "13:00", "14:00"],
-    });
-  }, []);
+    const fetchServices = async () => {
+      if (props.storeId === undefined) {
+        return;
+      }
+      const reservations = await listReservations(props.storeId);
+      console.log(reservations.map((reservation) => reservation.datetime));
+      // TODO: format.
+      setServices({
+        "2024-04-20": ["10:00", "11:00", "14:00", "15:00"],
+        "2024-04-21": ["09:00", "10:00", "11:00", "13:00", "14:00"],
+      });
+    };
+    fetchServices();
+  }, [props.storeId]);
   return (
     <div className="p-4 bg-white rounded-lg shadow">
       <h2 className="text-xl font-semibold mb-4 text-black">サービス一覧</h2>

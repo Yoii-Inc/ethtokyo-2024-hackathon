@@ -27,7 +27,7 @@ export default function StorePage() {
           <p className="text-red-500">ストアを選択してください</p>
         );
       case "serviceList":
-        return <ServiceList />;
+        return <ServiceList storeId={selectedStore?.storeId} />;
       case "loyaltyProgram":
         return <LoyaltyProgram />;
       default:
