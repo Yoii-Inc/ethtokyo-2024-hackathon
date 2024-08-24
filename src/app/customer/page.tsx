@@ -8,7 +8,7 @@ import thirdwebIcon from "@public/thirdweb.svg";
 import { client } from "../client";
 import StoreSelector from "../../components/StoreSelector";
 import TimeSlotSelector from "../../components/TimeSlotSelector";
-import { makeReservation } from "@/utils/customer/reservation";
+import { bookReservation } from "@/utils/customer/reservation";
 
 export default function CustomerPage() {
   const [selectedStore, setSelectedStore] = useState<number | null>(null);
@@ -46,7 +46,7 @@ export default function CustomerPage() {
         <TransactionButton
           transaction={() => {
             // TODO: replace with actual reservation ID
-            const tx = makeReservation(selectedStore, 10, selectedTimeSlot);
+            const tx = bookReservation(selectedStore, 10, selectedTimeSlot);
             return tx;
           }}
           onTransactionSent={(result) => {

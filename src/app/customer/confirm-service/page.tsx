@@ -20,12 +20,12 @@ function ConfirmServiceInnerPage() {
         }
     }, [searchParams]);
 
-    const handleConfirmService = async () => {
+    const handleFinalizePayment = async () => {
         if (!reservationId) throw new Error('予約IDが見つかりません');
 
         return prepareContractCall({
             contract,
-            method: 'confirmService',
+            method: 'finalizePayment',
             params: [BigInt(reservationId)],
         });
     };
@@ -48,7 +48,7 @@ function ConfirmServiceInnerPage() {
                 />
                 {address && (
                     <TransactionButton
-                        transaction={handleConfirmService}
+                        transaction={handleFinalizePayment}
                         onTransactionSent={(result) => {
                             console.log('トランザクション送信:', result.transactionHash);
                         }}

@@ -7,10 +7,12 @@ export default function NewService() {
     <div>
       <TransactionButton
         transaction={() => {
-          // TODO: replace with actual reservation ID
+          // TODO: replace with actual info
           const storeId = 1;
-          const deposits = 10;
-          const tx = registerReservationSlot(storeId, deposits);
+          const deposit = 1000;
+          const serviceFee = 2000;
+          const datetime = new Date().getTime();
+          const tx = registerReservationSlot(storeId, datetime, deposit, serviceFee);
           return tx;
         }}
         onTransactionSent={(result) => {

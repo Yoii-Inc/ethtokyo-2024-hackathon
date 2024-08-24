@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 
-import { registerStore } from "@/utils/store/management";
+import { addStore } from "@/utils/store/management";
 
 function RegisterStorePopup() {
   const [showPopup, setShowPopup] = useState(false);
   const [storeName, setStoreName] = useState("");
   const [walletAddress, setWalletAddress] = useState("");
 
-  const handleRegisterStore = () => {
-    registerStore(10, walletAddress);
+  const handleRegisterStore = (storeName: string) => () => {
+    addStore(storeName);
     setShowPopup(false);
   };
 
@@ -54,7 +54,7 @@ function RegisterStorePopup() {
                 Cancel
               </button>
               <button
-                onClick={handleRegisterStore}
+                onClick={handleRegisterStore("DummyStoreName")}
                 className="px-4 py-2 rounded bg-green-500 text-white"
               >
                 OK

@@ -97,7 +97,7 @@ export const contract = getContract({
           type: "uint256",
         },
       ],
-      name: "ReservationMade",
+      name: "ReservationBooked",
       type: "event",
     },
     {
@@ -109,8 +109,32 @@ export const contract = getContract({
           name: "reservationId",
           type: "uint256",
         },
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "storeId",
+          type: "uint256",
+        },
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "datetime",
+          type: "uint256",
+        },
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "deposit",
+          type: "uint256",
+        },
+        {
+          indexed: false,
+          internalType: "uint256",
+          name: "serviceFee",
+          type: "uint256",
+        },
       ],
-      name: "ServiceConfirmed",
+      name: "ReservationSlotAdded",
       type: "event",
     },
     {
@@ -124,8 +148,14 @@ export const contract = getContract({
         },
         {
           indexed: false,
+          internalType: "string",
+          name: "storeName",
+          type: "string",
+        },
+        {
+          indexed: false,
           internalType: "address",
-          name: "storeAddress",
+          name: "storeAdmin",
           type: "address",
         },
       ],
@@ -141,7 +171,17 @@ export const contract = getContract({
         },
         {
           internalType: "uint256",
-          name: "deposits",
+          name: "datetime",
+          type: "uint256",
+        },
+        {
+          internalType: "uint256",
+          name: "deposit",
+          type: "uint256",
+        },
+        {
+          internalType: "uint256",
+          name: "serviceFee",
           type: "uint256",
         },
       ],
@@ -153,14 +193,9 @@ export const contract = getContract({
     {
       inputs: [
         {
-          internalType: "uint256",
-          name: "storeId",
-          type: "uint256",
-        },
-        {
-          internalType: "address",
-          name: "storeAddress",
-          type: "address",
+          internalType: "string",
+          name: "storeName",
+          type: "string",
         },
       ],
       name: "addStore",
@@ -176,9 +211,9 @@ export const contract = getContract({
           type: "uint256",
         },
       ],
-      name: "confirmService",
+      name: "bookReservation",
       outputs: [],
-      stateMutability: "nonpayable",
+      stateMutability: "payable",
       type: "function",
     },
     {
@@ -188,15 +223,10 @@ export const contract = getContract({
           name: "reservationId",
           type: "uint256",
         },
-        {
-          internalType: "uint256",
-          name: "amount",
-          type: "uint256",
-        },
       ],
       name: "finalizePayment",
       outputs: [],
-      stateMutability: "nonpayable",
+      stateMutability: "payable",
       type: "function",
     },
     {
@@ -216,19 +246,6 @@ export const contract = getContract({
       inputs: [
         {
           internalType: "uint256",
-          name: "reservationId",
-          type: "uint256",
-        },
-      ],
-      name: "makeReservation",
-      outputs: [],
-      stateMutability: "payable",
-      type: "function",
-    },
-    {
-      inputs: [
-        {
-          internalType: "uint256",
           name: "",
           type: "uint256",
         },
@@ -241,13 +258,33 @@ export const contract = getContract({
           type: "uint256",
         },
         {
+          internalType: "address",
+          name: "customer",
+          type: "address",
+        },
+        {
           internalType: "uint256",
-          name: "deposits",
+          name: "datetime",
+          type: "uint256",
+        },
+        {
+          internalType: "uint256",
+          name: "requiredDeposit",
+          type: "uint256",
+        },
+        {
+          internalType: "uint256",
+          name: "currentDeposit",
+          type: "uint256",
+        },
+        {
+          internalType: "uint256",
+          name: "serviceFee",
           type: "uint256",
         },
         {
           internalType: "bool",
-          name: "serviceConfirmed",
+          name: "paid",
           type: "bool",
         },
       ],
@@ -262,11 +299,21 @@ export const contract = getContract({
           type: "uint256",
         },
       ],
-      name: "storeAddresses",
+      name: "stores",
       outputs: [
         {
+          internalType: "uint256",
+          name: "storeId",
+          type: "uint256",
+        },
+        {
+          internalType: "string",
+          name: "storeName",
+          type: "string",
+        },
+        {
           internalType: "address",
-          name: "",
+          name: "storeAdmin",
           type: "address",
         },
       ],
