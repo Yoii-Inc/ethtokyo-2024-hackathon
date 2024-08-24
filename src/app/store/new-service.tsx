@@ -1,18 +1,20 @@
-import RegisterStorePopup from "@/components/RegisterStore";
 import { registerReservationSlot } from "@/utils/store/service";
 import { useState } from "react";
 import { TransactionButton } from "thirdweb/react";
+import DateTimeSelector from "@/components/DateTimeSelector";
 
 export default function NewService(props: {
   storeId: number;
-  deposit: number;
-  serviceFee: number;
-  datetime: number;
 }) {
   const [showPopup, setShowPopup] = useState(false);
   const [deposit, setDeposit] = useState("");
   const [serviceFee, setServiceFee] = useState("");
-  const [dateTime, setDateTime] = useState("");
+  const [selectedDateTime, setSelectedDateTime] = useState<Date | null>(null);
+
+  const handleDateTimeSelect = (date: Date) => {
+    setSelectedDateTime(date);
+  };
+
   return (
     <div>
       <button
@@ -50,13 +52,8 @@ export default function NewService(props: {
             </div>
 
             <div className="mb-4">
-              <label className="block mb-2 text-black">Date</label>
-              <input
-                type="datetime-local"
-                value={dateTime}
-                onChange={(e) => setDateTime(e.target.value)}
-                className="w-full px-3 py-2 border rounded text-gray-500"
-              />
+              <label className="block mb-2 text-black">Date & Time</label>
+              <DateTimeSelector onSelectDateTime={handleDateTimeSelect} />
             </div>
 
             <div className="flex justify-end">
@@ -70,11 +67,14 @@ export default function NewService(props: {
                 unstyled
                 className="px-4 py-2 rounded bg-green-500 text-white"
                 transaction={() => {
+                  if (!selectedDateTime) {
+                    throw new Error("日時が選択されていません");
+                  }
                   const tx = registerReservationSlot(
                     props.storeId,
-                    props.datetime,
-                    props.deposit,
-                    props.serviceFee
+                    selectedDateTime.getTime(),
+                    Number(deposit),
+                    Number(serviceFee)
                   );
                   return tx;
                 }}

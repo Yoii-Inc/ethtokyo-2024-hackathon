@@ -22,9 +22,6 @@ export default function StorePage() {
         return selectedStore ? (
           <NewService
             storeId={Number(selectedStore.storeId)}
-            deposit={1000}
-            serviceFee={2000}
-            datetime={new Date().getTime()}
           />
         ) : (
           <p className="text-red-500">ストアを選択してください</p>

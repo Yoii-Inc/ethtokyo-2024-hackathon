@@ -836,7 +836,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@floating-ui/react-dom@npm:^2.0.0":
+"@floating-ui/react-dom@npm:^2.0.0, @floating-ui/react-dom@npm:^2.1.1":
   version: 2.1.1
   resolution: "@floating-ui/react-dom@npm:2.1.1"
   dependencies:
@@ -845,6 +845,20 @@ __metadata:
     react: ">=16.8.0"
     react-dom: ">=16.8.0"
   checksum: 10/cafabfb5dd0b25547863520b3bcf6faee7f087d0c3187a8779910a6838d496bf494f237bf1fe883bbfae1a7fcc399611ae52377b696065d8118bd7c1b9c0d253
+  languageName: node
+  linkType: hard
+
+"@floating-ui/react@npm:^0.26.2":
+  version: 0.26.22
+  resolution: "@floating-ui/react@npm:0.26.22"
+  dependencies:
+    "@floating-ui/react-dom": "npm:^2.1.1"
+    "@floating-ui/utils": "npm:^0.2.7"
+    tabbable: "npm:^6.0.0"
+  peerDependencies:
+    react: ">=16.8.0"
+    react-dom: ">=16.8.0"
+  checksum: 10/53f21ce765445733be4db2efd58c424ad1db0f369d4e20346733ff60f684574e7c435b9cea3298bf09a02484d2ebb52a4097bedda5d021430b3f08439fe91bc1
   languageName: node
   linkType: hard
 
@@ -2969,6 +2983,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react-datepicker@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "@types/react-datepicker@npm:7.0.0"
+  dependencies:
+    react-datepicker: "npm:*"
+  checksum: 10/b73d822abb0410bf9046e14844304f31e2d680c44a510dd757ef4be4861aa0a8943863ef7c427f361f42a630c982ba39fb1882b9532506a5c89d47fe099a2df1
+  languageName: node
+  linkType: hard
+
 "@types/react-dom@npm:^18":
   version: 18.3.0
   resolution: "@types/react-dom@npm:18.3.0"
@@ -4732,6 +4755,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"clsx@npm:^2.1.0, clsx@npm:^2.1.1":
+  version: 2.1.1
+  resolution: "clsx@npm:2.1.1"
+  checksum: 10/cdfb57fa6c7649bbff98d9028c2f0de2f91c86f551179541cf784b1cfdc1562dcb951955f46d54d930a3879931a980e32a46b598acaea274728dbe068deca919
+  languageName: node
+  linkType: hard
+
 "color-convert@npm:^1.9.0":
   version: 1.9.3
   resolution: "color-convert@npm:1.9.3"
@@ -5099,6 +5129,13 @@ __metadata:
     es-errors: "npm:^1.3.0"
     is-data-view: "npm:^1.0.1"
   checksum: 10/96f34f151bf02affb7b9f98762fb7aca1dd5f4553cb57b80bce750ca609c15d33ca659568ef1d422f7e35680736cbccb893a3d4b012760c758c1446bbdc4c6db
+  languageName: node
+  linkType: hard
+
+"date-fns@npm:^3.3.1":
+  version: 3.6.0
+  resolution: "date-fns@npm:3.6.0"
+  checksum: 10/cac35c58926a3b5d577082ff2b253612ec1c79eb6754fddef46b6a8e826501ea2cb346ecbd211205f1ba382ddd1f9d8c3f00bf433ad63cc3063454d294e3a6b8
   languageName: node
   linkType: hard
 
@@ -6263,9 +6300,11 @@ __metadata:
     "@types/mocha": "npm:>=9.1.0"
     "@types/node": "npm:^20"
     "@types/react": "npm:^18"
+    "@types/react-datepicker": "npm:^7.0.0"
     "@types/react-dom": "npm:^18"
     autoprefixer: "npm:^10.0.1"
     chai: "npm:^4.2.0"
+    clsx: "npm:^2.1.1"
     cross-spawn: "npm:^7.0.3"
     eslint: "npm:^8"
     eslint-config-next: "npm:14.1.0"
@@ -6277,6 +6316,7 @@ __metadata:
     postcss: "npm:^8"
     qrcode.react: "npm:^3.1.0"
     react: "npm:^18.3"
+    react-datepicker: "npm:^7.3.0"
     react-dom: "npm:^18.3"
     sharp: "npm:^0.33.5"
     solidity-coverage: "npm:^0.8.1"
@@ -9820,7 +9860,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types@npm:^15.8.1":
+"prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
   version: 15.8.1
   resolution: "prop-types@npm:15.8.1"
   dependencies:
@@ -9996,6 +10036,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-datepicker@npm:*, react-datepicker@npm:^7.3.0":
+  version: 7.3.0
+  resolution: "react-datepicker@npm:7.3.0"
+  dependencies:
+    "@floating-ui/react": "npm:^0.26.2"
+    clsx: "npm:^2.1.0"
+    date-fns: "npm:^3.3.1"
+    prop-types: "npm:^15.7.2"
+    react-onclickoutside: "npm:^6.13.0"
+  peerDependencies:
+    react: ^16.9.0 || ^17 || ^18
+    react-dom: ^16.9.0 || ^17 || ^18
+  checksum: 10/594e23086a9a3e5a84b25c4e96f1f4e379f0702e3407af54045177cb82a7d8f78f09599f5ae227e9cb902e79ebc70cc8b814ea0e500c28eeee9ce6f741039878
+  languageName: node
+  linkType: hard
+
 "react-dom@npm:^18.3":
   version: 18.3.1
   resolution: "react-dom@npm:18.3.1"
@@ -10012,6 +10068,16 @@ __metadata:
   version: 16.13.1
   resolution: "react-is@npm:16.13.1"
   checksum: 10/5aa564a1cde7d391ac980bedee21202fc90bdea3b399952117f54fb71a932af1e5902020144fb354b4690b2414a0c7aafe798eb617b76a3d441d956db7726fdf
+  languageName: node
+  linkType: hard
+
+"react-onclickoutside@npm:^6.13.0":
+  version: 6.13.1
+  resolution: "react-onclickoutside@npm:6.13.1"
+  peerDependencies:
+    react: ^15.5.x || ^16.x || ^17.x || ^18.x
+    react-dom: ^15.5.x || ^16.x || ^17.x || ^18.x
+  checksum: 10/bc1f5813ad25d81602661848b19f0c15357b87e224ddf5abc2ac4502ffddbe7ee44688827b0522327868ae63ab229030d2a2f185007ecfe861f1128d3e5319e6
   languageName: node
   linkType: hard
 
@@ -11337,6 +11403,13 @@ __metadata:
   version: 0.1.0
   resolution: "system-architecture@npm:0.1.0"
   checksum: 10/ca0dd793c45c354ab57dd7fc8ce7dc9923a6e07382bd3b22eb5b08f55ddb0217c390d00767549c5155fd4ce7ef23ffdd8cfb33dd4344cbbd37837d085a50f6f0
+  languageName: node
+  linkType: hard
+
+"tabbable@npm:^6.0.0":
+  version: 6.2.0
+  resolution: "tabbable@npm:6.2.0"
+  checksum: 10/980fa73476026e99dcacfc0d6e000d41d42c8e670faf4682496d30c625495e412c4369694f2a15cf1e5252d22de3c396f2b62edbe8d60b5dadc40d09e3f2dde3
   languageName: node
   linkType: hard
 
