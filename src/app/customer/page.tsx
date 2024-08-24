@@ -12,6 +12,7 @@ import { makeReservation } from "@/utils/customer/reservation";
 
 export default function CustomerPage() {
   const [selectedStore, setSelectedStore] = useState<number | null>(null);
+  const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState<string | null>(null);
 
   const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS;
@@ -35,7 +36,10 @@ export default function CustomerPage() {
       {selectedStore && (
         <TimeSlotSelector
           storeId={selectedStore}
-          onSelectTimeSlot={(timeSlot: string) => setSelectedTimeSlot(timeSlot)}
+          onSelectTimeSlot={(date: string, timeSlot: string) => {
+            setSelectedDate(date);
+            setSelectedTimeSlot(timeSlot);
+          }}
         />
       )}
       {selectedStore && selectedTimeSlot && (
