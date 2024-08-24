@@ -10,13 +10,23 @@ import { useState } from "react";
 import NewService from "./new-service";
 import ServiceList from "./service-list";
 import LoyaltyProgram from "./LoyaltyProgram";
+import StoreList from "./StoreList";
 export default function StorePage() {
   const [activeTab, setActiveTab] = useState("newService");
 
   const renderTabContent = () => {
     switch (activeTab) {
+      case "storeList":
+        return <StoreList />;
       case "newService":
-        return <NewService storeId={1} deposit={1000} serviceFee={2000} datetime={new Date().getTime()} />;
+        return (
+          <NewService
+            storeId={1}
+            deposit={1000}
+            serviceFee={2000}
+            datetime={new Date().getTime()}
+          />
+        );
       case "serviceList":
         return <ServiceList />;
       case "loyaltyProgram":
@@ -39,29 +49,42 @@ export default function StorePage() {
       <div className="flex space-x-4 border-b mb-4">
         <div className="tabs flex justify-around border-b-2 mb-4">
           <button
+            onClick={() => setActiveTab("storeList")}
+            className={`py-2 px-4 focus:outline-none ${
+              activeTab === "storeList"
+                ? "border-b-4 border-blue-500 text-blue-500 font-semibold"
+                : "text-gray-500"
+            }`}
+          >
+            所有ストア一覧画面
+          </button>
+          <button
             onClick={() => setActiveTab("newService")}
-            className={`py-2 px-4 focus:outline-none ${activeTab === "newService"
-              ? "border-b-4 border-blue-500 text-blue-500 font-semibold"
-              : "text-gray-500"
-              }`}
+            className={`py-2 px-4 focus:outline-none ${
+              activeTab === "newService"
+                ? "border-b-4 border-blue-500 text-blue-500 font-semibold"
+                : "text-gray-500"
+            }`}
           >
             新規サービス登録画面
           </button>
           <button
             onClick={() => setActiveTab("serviceList")}
-            className={`py-2 px-4 focus:outline-none ${activeTab === "serviceList"
-              ? "border-b-4 border-blue-500 text-blue-500 font-semibold"
-              : "text-gray-500"
-              }`}
+            className={`py-2 px-4 focus:outline-none ${
+              activeTab === "serviceList"
+                ? "border-b-4 border-blue-500 text-blue-500 font-semibold"
+                : "text-gray-500"
+            }`}
           >
             サービス一覧画面
           </button>
           <button
             onClick={() => setActiveTab("loyaltyProgram")}
-            className={`py-2 px-4 focus:outline-none ${activeTab === "loyaltyProgram"
-              ? "border-b-4 border-blue-500 text-blue-500 font-semibold"
-              : "text-gray-500"
-              }`}
+            className={`py-2 px-4 focus:outline-none ${
+              activeTab === "loyaltyProgram"
+                ? "border-b-4 border-blue-500 text-blue-500 font-semibold"
+                : "text-gray-500"
+            }`}
           >
             ロイヤリティプログラム設定画面
           </button>
