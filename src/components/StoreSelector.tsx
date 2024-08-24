@@ -59,6 +59,7 @@ export default function StoreSelector({
           store.maxFee = fees.length ? Math.max(...fees) : 0;
           store.minFee = fees.length ? Math.min(...fees) : 0;
 
+          // TODO: Do this in listStores
           // get loyalty logic contract address
           const loyaltyLogicContract = getContract({
             client,
