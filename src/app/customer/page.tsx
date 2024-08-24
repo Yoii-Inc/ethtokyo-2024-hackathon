@@ -6,13 +6,12 @@ import Link from "next/link";
 import { ConnectButton, TransactionButton } from "thirdweb/react";
 import thirdwebIcon from "@public/thirdweb.svg";
 import { client } from "../client";
-import ShopSelector from "../../components/ShopSelector";
+import StoreSelector from "../../components/StoreSelector";
 import TimeSlotSelector from "../../components/TimeSlotSelector";
-import RegisterCustomerPopup from "@/components/RegisterCustomer";
 import { makeReservation } from "@/utils/customer/reservation";
 
 export default function CustomerPage() {
-  const [selectedShop, setSelectedShop] = useState<number | null>(null);
+  const [selectedStore, setSelectedStore] = useState<number | null>(null);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState<string | null>(null);
 
   const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS;
@@ -30,20 +29,20 @@ export default function CustomerPage() {
           url: "https://example.com",
         }}
       />
-      <ShopSelector
-        onSelectShop={(shopId: number) => setSelectedShop(shopId)}
+      <StoreSelector
+        onSelectStore={(storeId: number) => setSelectedStore(storeId)}
       />
-      {selectedShop && (
+      {selectedStore && (
         <TimeSlotSelector
-          shopId={selectedShop}
+          storeId={selectedStore}
           onSelectTimeSlot={(timeSlot: string) => setSelectedTimeSlot(timeSlot)}
         />
       )}
-      {selectedShop && selectedTimeSlot && (
+      {selectedStore && selectedTimeSlot && (
         <TransactionButton
           transaction={() => {
             // TODO: replace with actual reservation ID
-            const tx = makeReservation(selectedShop, 10, selectedTimeSlot);
+            const tx = makeReservation(selectedStore, 10, selectedTimeSlot);
             return tx;
           }}
           onTransactionSent={(result) => {
@@ -62,7 +61,7 @@ export default function CustomerPage() {
       )}
       <div className="mt-8 flex justify-center">
         <Link
-          href="/shop"
+          href="/store"
           className="bg-purple-500 hover:bg-purple-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 flex items-center"
         >
           <svg
@@ -77,10 +76,9 @@ export default function CustomerPage() {
               clipRule="evenodd"
             />
           </svg>
-          ショップ管理ページへ
+          ストア管理ページへ
         </Link>
       </div>
-      <RegisterCustomerPopup />
     </main>
   );
 }

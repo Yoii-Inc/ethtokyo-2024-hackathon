@@ -4,7 +4,7 @@ export interface User {
   walletAddress: string;
 }
 
-export interface Shop {
+export interface Store {
   id: number;
   name: string;
   walletAddress: string;

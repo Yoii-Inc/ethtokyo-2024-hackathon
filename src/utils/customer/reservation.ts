@@ -2,7 +2,7 @@ import { prepareContractCall } from "thirdweb";
 import { contract } from "../../app/client";
 
 export function makeReservation(
-  shopId: number,
+  storeId: number,
   reservationId: number,
   reservationDate: string
 ) {

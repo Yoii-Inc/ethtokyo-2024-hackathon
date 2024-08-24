@@ -4,12 +4,12 @@ import QRCodeGenerator from "@/components/QRCodeGenerator";
 import Link from "next/link";
 import { ConnectButton, TransactionButton } from "thirdweb/react";
 import { client } from "../client";
-import { registerReservationSlot } from "@/utils/shop/service";
-import RegisterShopPopup from "@/components/RegisterShop";
-export default function ShopPage() {
+import { registerReservationSlot } from "@/utils/store/service";
+import RegisterStorePopup from "@/components/RegisterStore";
+export default function StorePage() {
   return (
     <main className="p-4 container mx-auto relative">
-      <h1 className="text-2xl font-bold mb-4">ショップ管理ページ</h1>
+      <h1 className="text-2xl font-bold mb-4">ストア管理ページ</h1>
       <ConnectButton
         client={client}
         appMetadata={{
@@ -17,13 +17,13 @@ export default function ShopPage() {
           url: "https://example.com",
         }}
       />
-      <RegisterShopPopup />
+      <RegisterStorePopup />
       <TransactionButton
         transaction={() => {
           // TODO: replace with actual reservation ID
-          const shopId = 1;
+          const storeId = 1;
           const deposits = 10;
-          const tx = registerReservationSlot(shopId, deposits);
+          const tx = registerReservationSlot(storeId, deposits);
           return tx;
         }}
         onTransactionSent={(result) => {

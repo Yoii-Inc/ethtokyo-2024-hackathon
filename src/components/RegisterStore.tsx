@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 
-import { registerUser } from "../utils/customer/management";
+import { registerStore } from "@/utils/store/management";
 
-function RegisterCustomerPopup() {
+function RegisterStorePopup() {
   const [showPopup, setShowPopup] = useState(false);
-  const [customerName, setCustomerName] = useState("");
+  const [storeName, setStoreName] = useState("");
   const [walletAddress, setWalletAddress] = useState("");
 
-  const handleRegisterUser = () => {
-    registerUser(customerName, walletAddress);
+  const handleRegisterStore = () => {
+    registerStore(10, walletAddress);
     setShowPopup(false);
   };
 
@@ -18,7 +18,7 @@ function RegisterCustomerPopup() {
         onClick={() => setShowPopup(true)}
         className="px-4 py-2 rounded bg-blue-500 text-white"
       >
-        Register User
+        Register Store
       </button>
 
       {showPopup && (
@@ -30,8 +30,8 @@ function RegisterCustomerPopup() {
               <label className="block mb-2 text-black">User Name</label>
               <input
                 type="text"
-                value={customerName}
-                onChange={(e) => setCustomerName(e.target.value)}
+                value={storeName}
+                onChange={(e) => setStoreName(e.target.value)}
                 className="w-full px-3 py-2 border rounded"
               />
             </div>
@@ -54,7 +54,7 @@ function RegisterCustomerPopup() {
                 Cancel
               </button>
               <button
-                onClick={handleRegisterUser}
+                onClick={handleRegisterStore}
                 className="px-4 py-2 rounded bg-green-500 text-white"
               >
                 OK
@@ -67,4 +67,4 @@ function RegisterCustomerPopup() {
   );
 }
 
-export default RegisterCustomerPopup;
+export default RegisterStorePopup;
