@@ -381,31 +381,91 @@ export const bookingContract = getContract({
   ],
 });
 
+export const erc20Abi = [
+  {
+    inputs: [],
+    name: "totalSupply",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "name",
+    outputs: [{ internalType: "string", name: "", type: "string" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "symbol",
+    outputs: [{ internalType: "string", name: "", type: "string" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "decimals",
+    outputs: [{ internalType: "uint8", name: "", type: "uint8" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "address", name: "account", type: "address" }],
+    name: "balanceOf",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "address", name: "recipient", type: "address" }],
+    name: "transfer",
+    outputs: [{ internalType: "bool", name: "", type: "bool" }],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "address", name: "spender", type: "address" }],
+    name: "allowance",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "address", name: "spender", type: "address" },
+      { internalType: "uint256", name: "amount", type: "uint256" },
+    ],
+    name: "approve",
+    outputs: [{ internalType: "bool", name: "", type: "bool" }],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "transferFrom",
+    outputs: [{ internalType: "bool", name: "", type: "bool" }],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+] as const;
+
 export const loyaltyLogicContractAbi = [
   {
-    anonymous: false,
     inputs: [
       {
-        indexed: true,
         internalType: "address",
-        name: "user",
+        name: "_loyaltyTokenAddress",
         type: "address",
       },
       {
-        indexed: false,
-        internalType: "uint256",
-        name: "reservationId",
-        type: "uint256",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "deposit",
-        type: "uint256",
+        internalType: "address",
+        name: "_bookingContractAddress",
+        type: "address",
       },
     ],
-    name: "DepositForfeited",
-    type: "event",
+    stateMutability: "nonpayable",
+    type: "constructor",
   },
   {
     anonymous: false,
@@ -413,7 +473,7 @@ export const loyaltyLogicContractAbi = [
       {
         indexed: true,
         internalType: "address",
-        name: "user",
+        name: "customer",
         type: "address",
       },
       {
@@ -429,7 +489,7 @@ export const loyaltyLogicContractAbi = [
         type: "uint256",
       },
     ],
-    name: "PaymentFinalized",
+    name: "LoyaltyPointsAwarded",
     type: "event",
   },
   {
@@ -438,124 +498,33 @@ export const loyaltyLogicContractAbi = [
       {
         indexed: true,
         internalType: "address",
-        name: "user",
+        name: "previousOwner",
         type: "address",
       },
       {
-        indexed: false,
-        internalType: "uint256",
-        name: "reservationId",
-        type: "uint256",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "deposit",
-        type: "uint256",
-      },
-    ],
-    name: "ReservationBooked",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "reservationId",
-        type: "uint256",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "storeId",
-        type: "uint256",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "datetime",
-        type: "uint256",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "deposit",
-        type: "uint256",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "serviceFee",
-        type: "uint256",
-      },
-    ],
-    name: "ReservationSlotAdded",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "storeId",
-        type: "uint256",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "storeName",
-        type: "string",
-      },
-      {
-        indexed: false,
+        indexed: true,
         internalType: "address",
-        name: "storeAdmin",
+        name: "newOwner",
         type: "address",
       },
     ],
-    name: "StoreAdded",
+    name: "OwnershipTransferred",
     type: "event",
   },
   {
     inputs: [
       {
-        internalType: "uint256",
-        name: "storeId",
-        type: "uint256",
+        internalType: "address",
+        name: "_user",
+        type: "address",
       },
       {
         internalType: "uint256",
-        name: "datetime",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "deposit",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "serviceFee",
+        name: "_amount",
         type: "uint256",
       },
     ],
-    name: "addReservationSlot",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "string",
-        name: "storeName",
-        type: "string",
-      },
-    ],
-    name: "addStore",
+    name: "awardPoints",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -567,110 +536,24 @@ export const loyaltyLogicContractAbi = [
         name: "reservationId",
         type: "uint256",
       },
-    ],
-    name: "bookReservation",
-    outputs: [],
-    stateMutability: "payable",
-    type: "function",
-  },
-  {
-    inputs: [
       {
         internalType: "uint256",
-        name: "reservationId",
+        name: "consumeLoyaltyPoints",
         type: "uint256",
       },
     ],
-    name: "finalizePayment",
-    outputs: [],
-    stateMutability: "payable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "reservationId",
-        type: "uint256",
-      },
-    ],
-    name: "forfeitDeposit",
+    name: "bookReservationDiscount",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
   },
   {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    name: "reservations",
+    inputs: [],
+    name: "bookingContract",
     outputs: [
       {
-        internalType: "uint256",
-        name: "storeId",
-        type: "uint256",
-      },
-      {
-        internalType: "address",
-        name: "customer",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "datetime",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "requiredDeposit",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "currentDeposit",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "serviceFee",
-        type: "uint256",
-      },
-      {
-        internalType: "bool",
-        name: "paid",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
+        internalType: "contract IBookingContract",
         name: "",
-        type: "uint256",
-      },
-    ],
-    name: "stores",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "storeId",
-        type: "uint256",
-      },
-      {
-        internalType: "string",
-        name: "storeName",
-        type: "string",
-      },
-      {
-        internalType: "address",
-        name: "storeAdmin",
         type: "address",
       },
     ],
@@ -680,49 +563,97 @@ export const loyaltyLogicContractAbi = [
   {
     inputs: [
       {
-        internalType: "uint256",
-        name: "_reservationId",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "_storeId",
-        type: "uint256",
-      },
-      {
         internalType: "address",
-        name: "_customer",
+        name: "_user",
         type: "address",
       },
+    ],
+    name: "checkBalance",
+    outputs: [
       {
         internalType: "uint256",
-        name: "_datetime",
+        name: "",
         type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "_requiredDeposit",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "_currentDeposit",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "_serviceFee",
-        type: "uint256",
-      },
-      {
-        internalType: "bool",
-        name: "_paid",
-        type: "bool",
       },
     ],
-    name: "updateReservation",
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "reservationId",
+        type: "uint256",
+      },
+    ],
+    name: "finalizePaymentAndAwardPoints",
+    outputs: [],
+    stateMutability: "payable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "loyaltyToken",
+    outputs: [
+      {
+        internalType: "contract IERC20",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "owner",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "renounceOwnership",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
   },
-];
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "newOwner",
+        type: "address",
+      },
+    ],
+    name: "transferOwnership",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_user",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "_amount",
+        type: "uint256",
+      },
+    ],
+    name: "usePoints",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+] as const;

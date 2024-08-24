@@ -19,6 +19,7 @@ OpenBooking addresses several issues in the traditional booking industry:
 - Ensuring seamless integration between frontend and smart contracts
 - Optimizing gas fees for various blockchain operations
 - Designing a flexible system to accommodate different types of services and businesses
+- Implementation of a token-based loyalty program
 
 ## Technologies I used
 
@@ -50,9 +51,8 @@ OpenBooking addresses several issues in the traditional booking industry:
 - Mobile app development for increased accessibility
 - Integration with popular calendar systems
 - Multi-chain support to offer users more blockchain options
-- Implementation of a token-based loyalty program
-- AI-powered recommendation system for personalized booking experiences
 - Expansion into new service sectors beyond current offerings
+- Gasless transactions using thirdweb paymaster
 
 ## Installation
 

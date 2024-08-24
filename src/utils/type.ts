@@ -8,6 +8,10 @@ export interface Store {
   storeId: bigint;
   storeName: string;
   storeAdmin: string;
+  loyaltyLogicContractAddress: string;
+  loyaltyTokenContractAddress: string;
+  loyaltyTokenName: string;
+  loyaltyTokenAmount: bigint;
   storeImage: string;
   description: string;
   maxFee: number;

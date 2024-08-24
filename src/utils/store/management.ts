@@ -38,6 +38,11 @@ export async function listStores() {
         storeId: store[0],
         storeName: store[1],
         storeAdmin: store[2],
+        loyaltyLogicContractAddress: store[3],
+        // fill later
+        loyaltyTokenContractAddress: "",
+        loyaltyTokenName: "",
+        loyaltyTokenAmount: BigInt(0),
         storeImage: "",
         description: "",
         maxFee: 0,
