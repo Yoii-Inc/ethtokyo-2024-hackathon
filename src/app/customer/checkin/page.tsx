@@ -39,11 +39,13 @@ function CheckInInnerPage() {
     }
 
     return (
-        <main className="p-4 container mx-auto">
-            <h1 className="text-2xl font-bold mb-4">Service Confirmation</h1>
+        <main className="p-4 container mx-auto relative">
+            <div className="absolute top-4 right-4">
+                <MyConnectButton />
+            </div>
+            <h1 className="text-2xl font-bold mb-4">Check In & Payment</h1>
             <p className="mb-4">Reservation ID: {reservationId}</p>
             <div className="flex flex-col items-center space-y-4">
-                <MyConnectButton />
                 {address && (
                     <TransactionButton
                         transaction={handleFinalizePayment}
@@ -58,7 +60,7 @@ function CheckInInnerPage() {
                             console.error("Transaction Error has occured:", error);
                         }}
                     >
-                        Confirm the Service
+                        Check In & Payment
                     </TransactionButton>
                 )}
             </div>
