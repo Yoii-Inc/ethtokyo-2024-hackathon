@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 
 export default function ServiceList(props: { storeId: bigint | undefined }) {
   const [services, setServices] = useState<Record<string, string[]>>({});
-
   useEffect(() => {
     const fetchServices = async () => {
       if (props.storeId === undefined) {
@@ -13,9 +12,12 @@ export default function ServiceList(props: { storeId: bigint | undefined }) {
       const reservations = await listReservations(props.storeId);
       console.log(reservations.map((reservation) => reservation.datetime));
       // TODO: format.
+      // setServices({
+      //   "2024-04-20": ["10:00", "11:00", "14:00", "15:00"],
+      //   "2024-04-21": ["09:00", "10:00", "11:00", "13:00", "14:00"],
+      // });
       setServices({
         "2024-04-20": ["10:00", "11:00", "14:00", "15:00"],
-        "2024-04-21": ["09:00", "10:00", "11:00", "13:00", "14:00"],
       });
     };
     fetchServices();

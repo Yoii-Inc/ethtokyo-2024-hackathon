@@ -56,32 +56,34 @@ export function deleteStore(userId: string) {
 }
 
 export async function listReservations(storeId: bigint) {
+  console.log("storeId: ", storeId);
   let reservations: Reservation[] = [];
   let i = 0;
 
   while (true) {
     try {
-      const store = await readContract({
+      console.log("i: ", i);
+      const reservation = await readContract({
         contract,
         method: "reservations",
         params: [BigInt(i)],
       });
 
-      if (!store) {
+      if (!reservation) {
         break;
       }
-      if (store[0] !== storeId) {
+      if (reservation[0] !== storeId) {
         continue;
       }
       reservations.push({
         reservationId: BigInt(i),
-        storeId: store[0],
-        customer: store[1],
-        datetime: store[2],
-        requiredDeposit: store[3],
-        currentDeposit: store[4],
-        serviceFee: store[5],
-        paid: store[6],
+        storeId: reservation[0],
+        customer: reservation[1],
+        datetime: reservation[2],
+        requiredDeposit: reservation[3],
+        currentDeposit: reservation[4],
+        serviceFee: reservation[5],
+        paid: reservation[6],
       });
       i++;
     } catch (error) {
