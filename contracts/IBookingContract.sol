@@ -28,7 +28,7 @@ interface IBookingContract {
     ) external;
 
     function updateReservation(
-        uint256 _resertvationId,
+        uint256 _reservationId,
         uint256 _storeId,
         address _customer,
         uint256 _datetime,
@@ -70,5 +70,15 @@ interface IBookingContract {
         address indexed user,
         uint256 reservationId,
         uint256 deposit
+    );
+    event ReservationUpdated(
+        uint256 reservationId,
+        uint256 storeId,
+        address customer,
+        uint256 datetime,
+        uint256 requiredDeposit,
+        uint256 currentDeposit,
+        uint256 serviceFee,
+        bool paid
     );
 }
