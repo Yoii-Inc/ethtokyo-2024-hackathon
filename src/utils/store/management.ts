@@ -56,7 +56,6 @@ export function deleteStore(userId: string) {
 }
 
 export async function listReservations(storeId: bigint) {
-  console.log("storeId: ", storeId);
   let reservations: Reservation[] = [];
   let i = 0;
 
@@ -72,21 +71,19 @@ export async function listReservations(storeId: bigint) {
       if (!reservation) {
         break;
       }
-
-      i++;
-      if (reservation[0] !== storeId) {
-        continue;
+      if (reservation[0] == storeId) {
+        reservations.push({
+          reservationId: BigInt(i),
+          storeId: reservation[0],
+          customer: reservation[1],
+          datetime: reservation[2],
+          requiredDeposit: reservation[3],
+          currentDeposit: reservation[4],
+          serviceFee: reservation[5],
+          paid: reservation[6],
+        });
       }
-      reservations.push({
-        reservationId: BigInt(i),
-        storeId: reservation[0],
-        customer: reservation[1],
-        datetime: reservation[2],
-        requiredDeposit: reservation[3],
-        currentDeposit: reservation[4],
-        serviceFee: reservation[5],
-        paid: reservation[6],
-      });
+      i++;
     } catch (error) {
       // TODO: Better way to handle this
       console.error(`error occurred while fetching reservations: ${error}`);

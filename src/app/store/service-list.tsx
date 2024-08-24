@@ -1,22 +1,20 @@
 import QRCodeGenerator from "@/components/QRCodeGenerator";
 import { listReservations } from "@/utils/store/management";
+import { Reservation } from "@/utils/type";
 import { useEffect, useState } from "react";
 
 export default function ServiceList(props: { storeId: bigint | undefined }) {
-  const [services, setServices] = useState<Record<string, string[]>>({});
+  const [services, setServices] = useState<Record<string, { time: string; reservation: Reservation }[]>>({});
   useEffect(() => {
     const fetchServices = async () => {
       if (props.storeId === undefined) {
         return;
       }
       const reservations = await listReservations(props.storeId);
-      console.log(reservations.map((reservation) => reservation.datetime));
-
-      const dictionary: Record<string, string[]> = {};
+      const dictionary: Record<string, { time: string; reservation: Reservation }[]> = {};
 
       reservations.forEach((reservation) => {
-        const date = new Date(Number(reservation.datetime));
-
+        const dt = new Date(Number(reservation.datetime));
         // transform to JST (JST: UTC+9)
         const options: Intl.DateTimeFormatOptions = {
           year: "numeric",
@@ -28,20 +26,21 @@ export default function ServiceList(props: { storeId: bigint | undefined }) {
           timeZone: "Asia/Tokyo",
         };
 
-        const localeDate = date.toLocaleString("ja-JP", options).split(" ");
+        const localeDate = dt.toLocaleString("ja-JP", options).split(" ");
+        const date = localeDate[0].replace(/\//g, "-"); // key yyyy-mm-dd
+        const time = localeDate[1]; // value hh:mm
 
-        const key = localeDate[0].replace(/\//g, "-"); // key yyyy-mm-dd
-        const value = localeDate[1]; // value hh:mm
-
-        if (!dictionary[key]) {
-          dictionary[key] = [];
+        if (!dictionary[date]) {
+          dictionary[date] = [];
         }
 
-        dictionary[key].push(value);
+        dictionary[date].push({
+          time: time,
+          reservation: reservation,
+        });
       });
 
       setServices(dictionary);
-      console.log("services is {}", services);
     };
     fetchServices();
   }, [props.storeId]);
@@ -58,7 +57,7 @@ export default function ServiceList(props: { storeId: bigint | undefined }) {
           >
             <div className="font-bold mb-2">{date}</div>
             <ul className="list-disc list-inside space-y-2">
-              {times.map((time, index) => (
+              {times.map(({ time, reservation }, index) => (
                 <div
                   key={index}
                   className="p-3 bg-gray-200 rounded-lg shadow-sm text-black flex items-center justify-between group"
