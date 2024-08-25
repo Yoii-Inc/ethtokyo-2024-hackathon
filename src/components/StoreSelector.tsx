@@ -29,40 +29,42 @@ export default function StoreSelector({
           store.maxFee = fees.length ? Math.max(...fees) : 0;
           store.minFee = fees.length ? Math.min(...fees) : 0;
 
-          // TODO: Do this in listStores
-          // get loyalty logic contract address
-          const loyaltyLogicContract = getContract({
-            client,
-            address: store.loyaltyLogicContractAddress,
-            chain: chain,
-            abi: loyaltyLogicContractAbi,
-          });
-          const loyaltyTokenContractAddress = await readContract({
-            contract: loyaltyLogicContract,
-            method: "loyaltyToken",
-          });
-          store.loyaltyTokenContractAddress = loyaltyTokenContractAddress;
+          if (store.loyaltyLogicContractAddress !== "0x0000000000000000000000000000000000000000") {
+            // TODO: Do this in listStores
+            // get loyalty logic contract address
+            const loyaltyLogicContract = getContract({
+              client,
+              address: store.loyaltyLogicContractAddress,
+              chain: chain,
+              abi: loyaltyLogicContractAbi,
+            });
+            const loyaltyTokenContractAddress = await readContract({
+              contract: loyaltyLogicContract,
+              method: "loyaltyToken",
+            });
+            store.loyaltyTokenContractAddress = loyaltyTokenContractAddress;
 
-          const loyaltyTokenContract = getContract({
-            client,
-            address: loyaltyTokenContractAddress,
-            chain: chain,
-            abi: erc20Abi,
-          });
-          store.loyaltyTokenContractAddress = loyaltyTokenContractAddress;
+            const loyaltyTokenContract = getContract({
+              client,
+              address: loyaltyTokenContractAddress,
+              chain: chain,
+              abi: erc20Abi,
+            });
+            store.loyaltyTokenContractAddress = loyaltyTokenContractAddress;
 
-          const loyaltyTokenName = await readContract({
-            contract: loyaltyTokenContract,
-            method: "name",
-          });
-          store.loyaltyTokenName = loyaltyTokenName;
+            const loyaltyTokenName = await readContract({
+              contract: loyaltyTokenContract,
+              method: "name",
+            });
+            store.loyaltyTokenName = loyaltyTokenName;
 
-          const loyalyTokenAmount = await readContract({
-            contract: loyaltyTokenContract,
-            method: "balanceOf",
-            params: [account.address],
-          });
-          store.loyaltyTokenAmount = loyalyTokenAmount;
+            const loyalyTokenAmount = await readContract({
+              contract: loyaltyTokenContract,
+              method: "balanceOf",
+              params: [account.address],
+            });
+            store.loyaltyTokenAmount = loyalyTokenAmount;
+          }
           return store;
         })
       );
