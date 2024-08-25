@@ -3136,6 +3136,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@openzeppelin/contracts-upgradeable@npm:^4.4.2, @openzeppelin/contracts-upgradeable@npm:^4.9.3":
+  version: 4.9.6
+  resolution: "@openzeppelin/contracts-upgradeable@npm:4.9.6"
+  checksum: 10/af9057147f13b6f0e13ca69581777f615f2cce8c6c274ec00fbea906a9095cd9ca1fb70e2c1282122a9f522fd639641c180bf1ad79bb2722494aac5ae9e565bc
+  languageName: node
+  linkType: hard
+
+"@openzeppelin/contracts@npm:^4.9.3":
+  version: 4.9.6
+  resolution: "@openzeppelin/contracts@npm:4.9.6"
+  checksum: 10/71f45ad42e68c0559be4ba502115462a01c76fc805c08d3005c10b5550a093f1a2b00b2d7e9d6d1f331e147c50fd4ad832f71c4470ec5b34f5a2d0751cd19a47
+  languageName: node
+  linkType: hard
+
 "@parcel/watcher-android-arm64@npm:2.4.1":
   version: 2.4.1
   resolution: "@parcel/watcher-android-arm64@npm:2.4.1"
@@ -4208,6 +4222,26 @@ __metadata:
   peerDependencies:
     react: ^18.0.0
   checksum: 10/fff25a36d764b0bec7d4ec3f499a74881abf043e81a8f97c71ffffd52fb6b1cfd60f0199ac4150902beccc95e80b7c32ec3a56ae2ee07bdd388e14bb4546123b
+  languageName: node
+  linkType: hard
+
+"@thirdweb-dev/contracts@npm:^3.15.0":
+  version: 3.15.0
+  resolution: "@thirdweb-dev/contracts@npm:3.15.0"
+  dependencies:
+    "@openzeppelin/contracts": "npm:^4.9.3"
+    "@openzeppelin/contracts-upgradeable": "npm:^4.9.3"
+    "@thirdweb-dev/dynamic-contracts": "npm:^1.2.4"
+    erc721a-upgradeable: "npm:^3.3.0"
+    solady: "npm:0.0.180"
+  checksum: 10/da33b5697fb2f1bd7e619958bd36f0cbcc3f6550b3113e3c1707cef297e79da7e55539e235f4b3bf2a0998fa4e0c6b52c96ed57b652333101152c5ae3f92b0d2
+  languageName: node
+  linkType: hard
+
+"@thirdweb-dev/dynamic-contracts@npm:^1.2.4":
+  version: 1.2.5
+  resolution: "@thirdweb-dev/dynamic-contracts@npm:1.2.5"
+  checksum: 10/b747d7247ce08fa5d09e425de8050255931833b82e100988303af621e936ab30265b3a96392bf07a4e8953d545a8728a93a286d26d0c72442ba6afcfa10a66fe
   languageName: node
   linkType: hard
 
@@ -7235,6 +7269,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"erc721a-upgradeable@npm:^3.3.0":
+  version: 3.3.0
+  resolution: "erc721a-upgradeable@npm:3.3.0"
+  dependencies:
+    "@openzeppelin/contracts-upgradeable": "npm:^4.4.2"
+  checksum: 10/6fff2af917d840f5304d0c3437e1f1ea61b5493703c7b734ea665dc3dfce1cda16aac0fd993f491e24298a7cc5192d646ac77fdf13b271971b25b9d11a72052e
+  languageName: node
+  linkType: hard
+
 "err-code@npm:^2.0.2":
   version: 2.0.3
   resolution: "err-code@npm:2.0.3"
@@ -7936,6 +7979,7 @@ __metadata:
     "@nomicfoundation/hardhat-verify": "npm:^2.0.0"
     "@nomicfoundation/ignition-core": "npm:^0.15.5"
     "@svgr/webpack": "npm:^8.1.0"
+    "@thirdweb-dev/contracts": "npm:^3.15.0"
     "@typechain/ethers-v6": "npm:^0.5.0"
     "@typechain/hardhat": "npm:^9.0.0"
     "@types/chai": "npm:^4.2.0"
@@ -12632,6 +12676,13 @@ __metadata:
     ip-address: "npm:^9.0.5"
     smart-buffer: "npm:^4.2.0"
   checksum: 10/ffcb622c22481dfcd7589aae71fbfd71ca34334064d181df64bf8b7feaeee19706aba4cffd1de35cc7bbaeeaa0af96be2d7f40fcbc7bc0ab69533a7ae9ffc4fb
+  languageName: node
+  linkType: hard
+
+"solady@npm:0.0.180":
+  version: 0.0.180
+  resolution: "solady@npm:0.0.180"
+  checksum: 10/ab4743a7ba6e5c6f718a58cd2cf00cacfea111c0111e91ad350720768f697ecebb02c282bb0b8b57ae9f108f2e7634a32b562a0f949a56e1360102499400cb52
   languageName: node
   linkType: hard
 
