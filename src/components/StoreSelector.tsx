@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Store } from "@/utils/type";
 import { useActiveAccount } from "thirdweb/react";
 import { listReservations, listStores } from "@/utils/store/management";
-import { getContract, readContract } from "thirdweb";
+import { ZERO_ADDRESS, getContract, readContract } from "thirdweb";
 import { chain, client, erc20Abi, loyaltyLogicContractAbi } from "@/app/client";
 
 export default function StoreSelector({
@@ -29,7 +29,7 @@ export default function StoreSelector({
           store.maxFee = fees.length ? Math.max(...fees) : 0;
           store.minFee = fees.length ? Math.min(...fees) : 0;
 
-          if (store.loyaltyLogicContractAddress !== "0x0000000000000000000000000000000000000000") {
+          if (store.loyaltyLogicContractAddress !== ZERO_ADDRESS) {
             // TODO: Do this in listStores
             // get loyalty logic contract address
             const loyaltyLogicContract = getContract({
