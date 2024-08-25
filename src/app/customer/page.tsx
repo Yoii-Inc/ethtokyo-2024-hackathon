@@ -36,8 +36,8 @@ export default function CustomerPage() {
           setSelectedStore={setSelectedStore}
         />
         {selectedStore !== null && (
-          <div className="mb-8">
-            <h2 className="text-xl font-semibold mb-4 text-gray-700">Select a Time Slot</h2>
+          <div className="mb-8 text-gray-700">
+            <h2 className="text-xl font-semibold mb-4">Select a Time Slot</h2>
             <TimeSlotSelector
               storeId={selectedStore}
               onSelectTimeSlot={(reservationId: number) => {
